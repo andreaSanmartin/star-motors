@@ -1,0 +1,71 @@
+<div class="main-content">
+    <h2 align="center">Orden Reparaciones</h2>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card">
+
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="notification hidden-sm hidden-xs">Estado</span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" (click)="filtrarOrdenesByStatus(1,1)" name="estadoPendiente">Pendiente</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" (click)="filtrarOrdenesByStatus(2,1)" name="estadoProcesado">Procesado</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" (click)="filtrarOrdenesByStatus(3,1)" name="estadoEliminado">Eliminado</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" (click)="filtrarOrdenesByStatus(6,1)" name="estadoFinalizado">Finalizado</a>
+                                </li>
+                            </ul>
+                        </th>
+                        <th scope="col">#</th>
+                        <th scope="col">Id Garantia</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Cedula</th>
+                        <th scope="col">Nombres</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Matricula</th>
+                        <th scope="col">Acción</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let orden of dataGarantias; let indice=index">
+                        <td></td>
+                        <th scope="row">{{indice+1}}</th>
+                        <td>{{orden.garantia_.idGarantia}}</td>
+                        <td>{{orden.garantia_.garFecha}}</td>
+                        <td>{{orden.cliente_.persona.perCedula}}</td>
+                        <td>{{orden.cliente_.persona.perNombre +" "+ orden.cliente_.persona.perApellido}}</td>
+                        <td>{{orden.vehiculo_.ejemplar.modelo.marca.marNombre}}</td>
+                        <td>{{orden.vehiculo_.ejemplar.modelo.modNombre}}</td>
+                        <td>{{orden.vehiculo_.vehMatricula}}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm"
+                                (click)="solicitudRepuesto(orden.garantia_.idGarantia)">
+                                Solicitud Repuesto
+                            </button>
+                            &nbsp;
+                            <button type="button" class="btn btn-primary btn-sm"
+                                (click)="verOrden(orden.garantia_.idGarantia)">
+                                Informe Reparación
+                            </button>
+                        </td>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,127 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title" style="text-align: center;">Reclamos de Garantia</h4>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Cedula</th>
+                                    <th scope="col">Solicitante Garantia</th>
+                                    <th scope="col">Modelo de vehiculo</th>
+                                    <th class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            <span class="notification hidden-sm hidden-xs">Concesionaria</span>
+                                            <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li *ngFor="let concesionaria of listConcesionaria">
+                                                <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" name="estadoPendiente" (click)="buscarConcesionaria(concesionaria.idConcesionaria)">{{concesionaria.conNombre}}</a>
+                                            </li>
+                                        </ul>
+                                    </th>
+                                    <th class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            <span class="notification hidden-sm hidden-xs">Estado</span>
+                                            <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" (click)="listReclamosGarantia(1)" name="estadoPendiente">Pendiente</a>
+                                            </li>
+                                            <li>
+                                                <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" (click)="listReclamosGarantia(2)" name="estadoProcesado">Procesado</a>
+                                            </li>
+                                            <li>
+                                                <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" (click)="listReclamosGarantia(5)" name="estadoAprobado">Aprobado</a>
+                                            </li>
+                                            <li>
+                                                <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" (click)="listReclamosGarantia(4)" name="estadoRechazado">Rechazado</a>
+                                            </li>
+                                            <li>
+                                                <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" (click)="listReclamosGarantia(3)" name="estadoEliminado">Eliminado</a>
+                                            </li>
+                                            <li>
+                                                <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" (click)="listReclamosGarantia(6)" name="estadoEliminado">Finalizado</a>
+                                            </li>
+                                        </ul>
+                                    </th>
+                                    <th scope="col">Accion</th>
+                                    <tr>
+
+                                        <th><input type="text" class="form-control" id="inputDespachador" [(ngModel)]="datefilter" name="datefilter"></th>
+                                        <th>
+
+                                        </th>
+                                        <th scope="col"><input type="text" class="form-control" id="inputDetalle" [(ngModel)]="nombres" name="nombres"></th>
+                                        <th scope="col">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                  <button class="btn btn-default" type="button" (click)="findByModelos()">Buscar</button>
+                                                </span>
+                                                <input type="text" [(ngModel)]="modeloVehiculo" placeholder="Cedula" class="form-control">
+                                            </div>
+                                        </th>
+                                    </tr>
+                            </thead>
+                            <tbody *ngFor=" let reclamo of listReclamos |  dateGarantia : datefilter ">
+
+                                <tr *ngFor="let cliente of listClientes |  filtroGarantia : nombres">
+                                    <td *ngIf="cliente.idCliente == reclamo.idCliente">{{reclamo.reclamo.recFecha}}</td>
+                                    <td *ngIf="cliente.idCliente == reclamo.idCliente">
+                                        <div *ngFor="let cliente of listClientes">
+                                            <div *ngIf="cliente.idCliente == reclamo.idCliente">
+                                                {{cliente.persona.perCedula}}
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td *ngIf="cliente.idCliente == reclamo.idCliente">
+                                        <div *ngFor="let cliente of listClientes">
+                                            <div *ngIf="cliente.idCliente == reclamo.idCliente">
+                                                {{cliente.persona.perNombre}} {{cliente.persona.perApellido}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td *ngIf="cliente.idCliente == reclamo.idCliente">
+                                        <div *ngFor="let vehiculo of listVehiculos">
+                                            <div *ngIf="reclamo.idVehiculo == vehiculo.idVehiculo">
+                                                {{vehiculo.ejemplar.modelo.modNombre}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td *ngIf="cliente.idCliente == reclamo.idCliente">
+                                        <div *ngFor="let concesionaria of listConcesionaria">
+                                            <div *ngIf="reclamo.idConcesionaria == concesionaria.idConcesionaria">
+                                                {{concesionaria.conNombre}}
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td *ngIf="cliente.idCliente == reclamo.idCliente">
+                                        <div *ngIf="reclamo.reclamo.recEstado===1">Pendiente</div>
+                                        <div *ngIf="reclamo.reclamo.recEstado===2">Procesado</div>
+                                        <div *ngIf="reclamo.reclamo.recEstado===5">Aprobado</div>
+                                        <div *ngIf="reclamo.reclamo.recEstado===4">Rechazado</div>
+                                        <div *ngIf="reclamo.reclamo.recEstado===3">Eliminado</div>
+                                    </td>
+
+                                    <td *ngIf="cliente.idCliente == reclamo.idCliente">
+                                        <button class="btn btn-primary btn-xs" (click)="verDetalleReclamo(reclamo.idGarantia)">Ver detalles
+                                    </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

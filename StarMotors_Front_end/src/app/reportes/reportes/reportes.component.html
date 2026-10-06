@@ -1,0 +1,251 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <h1>Reportes y Estadisticas</h1>
+        <hr>
+        <h3>Garantia</h3>
+        <div class="row">
+            <div id="print" class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title" style="text-align: center;">Filtro de Garantías</h4>
+                        <div class="container">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="pe-7s-angle-down-circle"></i>
+                                    <b class="caret"></b>
+                                    <span class="notification hidden-sm hidden-xs">Estados</span>
+                                    <p class="hidden-lg hidden-md">
+                                        Estado Garantia
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="btn btn-primary btn-xs" class="dropdown-item fontstyle"
+                                            (click)="findGarantias(true)" name="estadoAplicadas"> <i
+                                                class="pe-7s-star"></i> Aplicadas</a>
+                                    </li>
+                                    <li>
+                                        <a class="btn btn-primary btn-xs" name="estadoAtendida"
+                                            (click)="findGarantias(false)" class="dropdown-item fontstyle"> <i
+                                                class="pe-7s-star"></i>No Aplicadas</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </div>
+                    </div>
+
+                    <div class="content table-responsive table-full-width" style="margin: auto;">
+                        <form action="">
+                            <button (click)="onClick()" printSectionId="filtroGarantia" printTitle="Filtro de Garantias"
+                                [useExistingCss]="true"
+                                styleSheetFile="C:\Users\capit\Documents\Desarrollos\Angular\StarMotors_Front_end\node_modules\bootstrap\dist\css\bootstrap.min.css"
+                                ngxPrint id="repuestos" class="btn btn-primary btn-fill">Imprimir</button>
+                        </form>
+                        <div id="filtroGarantia">
+                            <table id="print" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Modelo</th>
+                                        <th scope="col">Color</th>
+                                        <th scope="col">Año de Fabricación</th>
+                                        <th scope="col">Pais de Origen</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col"><input type="text" class="form-control" id="inputMarca"
+                                                [(ngModel)]="filtro"></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th scope="col">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <input *ngIf="!ocultar" style="max-width: 180px;" type="number"
+                                                        class="form-control" id="inputAnio" [(ngModel)]="anio" required>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button *ngIf="!ocultar" style="margin-left: 10px;"
+                                                        class="btn btn-primary btn-fill" (click)="findForAnio(anio)"><i
+                                                            class="fa fa-search"></i></button>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button *ngIf="!ocultar" style="margin-left: 10px;"
+                                                        class="btn btn-primary btn-fill" (click)="refresh()"><i
+                                                            class="fa fa-history"></i></button>
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let vehiculo of listVehiculos | reportes:filtro">
+                                        <td>{{vehiculo.modelo.marca.marNombre}}</td>
+                                        <td>{{vehiculo.modelo.modNombre}}</td>
+                                        <td>{{vehiculo.ejmColor}}</td>
+                                        <td>{{(vehiculo.modelo.modAnio).toString()}}</td>
+                                        <td>{{vehiculo.modelo.paisOrigen.nombre}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title" style="text-align: center;">Reporte de Costos de Garantia</h4>
+                        <div class="container">
+                            <li class="dropdown">
+                                <form action="">
+                                    <div class="form-group">
+                                        <label class="label" for="name">Fecha Inicio:</label>
+                                        <input type="date" id="start" name="fechaInicio" [(ngModel)]="fechaInicio"
+                                            value="2021-12-31">
+                                        <label class="label" for="name">Fecha Final:</label>
+                                        <input type="date" id="start" name="fechaFinal" [(ngModel)]="fechaFinal"
+                                            value="2021-12-31">
+
+                                    </div>
+
+                                    <button (click)=" getCostobyMonth()" type="button" class="btn btn-primary btn-fill">
+                                        Buscar
+                                    </button>
+                                    <button id="repuestos" type="button" printSectionId="garantiasAplicadas" [useExistingCss]="true" ngxPrint class="btn btn-primary btn-fill">
+                                        Imprimir
+                                    </button>
+                                </form>
+                            </li>   
+                        </div>
+                    </div>
+                    <div id="garantiasAplicadas" class="content table-responsive table-full-width" style="margin: auto;">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Fecha Inicial</th>
+                                    <th scope="col">Fecha Final</th>
+                                    <th scope="col">#Num Garantias Aplicadas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{fechaInicial}} {{fechaFinal}}</td>
+                                    <td>{{fechaFinal}}</td>
+                                    <td>{{garantiasAplicadas}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td colspan="2">{{total | currency:'USD'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla para la facturacion-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title" style="text-align: center;">Reporte de Facturacion al Cliente </h4>
+                        <div class="container">
+                            <li class="dropdown">
+                                <form action="">
+                                    <div class="form-group">
+                                        <label class="label" for="name">Fecha Inicio:</label>
+                                        <input type="date" id="start" name="fechaInicioF"
+                                            [(ngModel)]="fechaInicioFactura" value="2021-12-31">
+                                        <label class="label" for="name">Fecha Final:</label>
+                                        <input type="date" id="start" name="fechaFinalF" [(ngModel)]="fechaFinalFactura"
+                                            value="2021-12-31">
+                                    </div>
+
+                                    <button (click)=" getFacturabyMonth()" type="button" class="btn btn-primary btn-fill">
+                                        Buscar
+                                    </button>
+                                    <button id="repuestos" type="button" printSectionId="facturacion" [useExistingCss]="true" ngxPrint class="btn btn-primary btn-fill">
+                                        Imprimir
+                                    </button>
+                                </form>
+                            </li>
+                        </div>
+                    </div>
+                    <div id="facturacion">
+                        <div class="content table-responsive table-full-width" style="margin: auto;">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Factura #</th>
+                                        <th scope="col">Cliente</th>
+                                        <th scope="col">Monto Pagado</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let total of listFacturaClientes; index as i">
+                                    <tr *ngFor="let cliente of listClientes">
+                                        <td>{{listFacturaClientes[i].enfrFecha | date: 'yyyy/MM/dd' }}</td>
+                                        <td>{{listFacturaClientes[i].idEncFacturaReparacion}}</td>
+                                        <td>{{cliente.persona.perCedula}} {{cliente.persona.perNombre}}
+                                            {{cliente.persona.perApellido}} </td>
+                                        <td>{{totalF | currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td colspan="2">{{totalF | currency:'USD'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Reportes Estadisticos -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-user">
+                    <div class="content">
+                        <p class="description text-center">
+                        </p>
+                        <h4 class="title text-center">Reportes estadísticos sobre los vehículos con mayores solicitudes de garantías 
+                            aplicadas
+                        </h4>
+                        <div style="margin: auto; width:'500px'; height:'500px';">
+                            <canvas id="canvas">{{chart}}</canvas>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-user">
+                            <div class="content">
+                                <p class="description text-center">
+                                </p>
+                                <h4 class="title text-center">Reportes estadísticos de repuestos con mayor demanda</h4>
+                                <div style="width:'500px'; height:'500px';">
+                                    <canvas id="chartR">{{chartR}}</canvas>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <hr>
+
+    </div>
+</div>
+
+
+<!--Probando el imprimr-->

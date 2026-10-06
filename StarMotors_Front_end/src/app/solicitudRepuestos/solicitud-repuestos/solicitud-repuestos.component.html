@@ -1,0 +1,213 @@
+<div class="main-content">
+    <div class="container">
+        <h2>Generar solicitud de repuestos</h2>
+        <form>
+            <div class="row">
+                <!-- DATOS DEL VEHICULO-->
+                <div class="col-md-auto">
+                    <table class="table table-bordered">
+                        <thead>
+
+                        <tr>
+                            <th colspan="3">Datos del vehiculo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td rowspan="10">
+                                <img width="400px" src="{{vehiculo.ejemplar?.modelo?.modFoto}}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Marca:</th>
+                            <td style="text-align: left">{{vehiculo.ejemplar?.modelo?.marca?.marNombre}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Modelo:</th>
+                            <td style="text-align: left">{{vehiculo.ejemplar?.modelo?.modNombre}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Nro Motor:</th>
+                            <td style="text-align: left">{{vehiculo.vehNumMotor}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Nro Chasis:</th>
+                            <td style="text-align: left">{{vehiculo.vehNumChasis}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Año:</th>
+                            <td style="text-align: left">{{vehiculo.ejemplar?.modelo?.modAnio}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Potencia:</th>
+                            <td style="text-align: left">{{vehiculo.ejemplar?.modelo?.modPotencia}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Cilindraje:</th>
+                            <td style="text-align: left">{{vehiculo.ejemplar?.modelo?.modCilindraje}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tipo de combustible:</th>
+                            <td style="text-align: left">{{vehiculo.ejemplar?.modelo?.tipoCombustible?.tcNombre}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Color:</th>
+                            <td style="text-align: left">{{vehiculo.ejemplar?.ejmColor}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br/>
+                <br/>
+                <h6>Datos de la Solicitud</h6>
+                <label ngDefaultControl id="fecha" [(ngModel)]="fechaData" [ngModelOptions]="{ standalone: true }"
+                       class="form-label">Fecha de emisión:
+                </label>
+                <input #fechaEmi class="form-control" value="{{ date | date: 'yyyy/MM/dd' }}" readonly>
+                <br/><br/>
+
+                <label class="form-label">Detalle</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        [(ngModel)]="detalleSo"
+                        id="descripcion"
+                        placeholder="Ingrese un detalle breve"
+                        [ngModelOptions]="{ standalone: true }"
+                        aria-describedby="detalleHelp">
+            </div>
+
+            <br>
+            <br>
+            <button
+                    type="button"
+                    class="btn btn-sm btn-primary"
+                    (click)="toogleVentanaRepuesto()">
+                <span class="glyphicon glyphicon-plus"></span>
+                Agregar Repuestos
+            </button>
+            <br>
+
+            <div class="row" style="margin: auto">
+                <h6>Repuestos</h6>
+                <div class="col-4">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre del Repuesto</th>
+                            <th scope="col">Precio del Repuesto</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Accion</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let repuesto of listRepuestosSelected; let i = index">
+                        <tr>
+                            <td>{{ repuesto.idRepuesto }}</td>
+                            <td>{{ repuesto.repNombre }}</td>
+                            <td>{{ repuesto.repPrecio | currency: "USD" }}</td>
+                            <td>{{ listRepuestosPost[i].cantidad }}</td>
+                            <td>
+                                <button
+                                        type="submit"
+                                        class="btn btn-xs btn-danger"
+                                        (click)="removeRepuesto(i)"
+                                >
+                                    <span class="glyphicon glyphicon-trash"></span> Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div>
+                <button type="submit" class="btn btn-primary btn-fill" (click)="volver()" style="margin: 10 px">
+                    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+                </button>
+                <button type="submit" class="btn btn-primary btn-fill" (click)="postSolicitud()" style="margin: 10 px; margin-left: 16cm;">
+                    <span class="glyphicon glyphicon-send"></span> Enviar Solicitud
+                </button>
+            </div>
+
+    </form>
+</div>
+
+
+<div *ngIf="ventanaSeleccionRepuesto" class="window-notice" id="window-notice">
+    <div class="content">
+        <form [formGroup]="formSeleccionRepuesto">
+            <table class="table table-bordered">
+                <thead class="table table-bordered">
+                <tr>
+                    <td colspan="8">
+                        <legend><strong>Seleccione Repuesto</strong></legend>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Marca:</td>
+                    <td>
+                        <select
+                                class="form-control"
+                                [(ngModel)]="idMarca"
+                                [ngModelOptions]="{ standalone: true }"
+                                (ngModelChange)="onChangeMarca($event)"
+                        >
+                            <option selected>Seleccione una marca...</option>
+                            <option
+                                    [value]="marca.idMarca"
+                                    *ngFor="let marca of listMarcas"
+                            >
+                                {{ marca.marNombre }}
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Repuesto:</td>
+                    <td>
+                        <select class="form-control"
+                                formControlName="idRepuestoAPIRestSQL"
+                                (ngModelChange)="onChangeRepuesto($event)">
+                            <option selected>Seleccione un Repuesto...</option>
+                            <option [value]="repuesto.idRepuesto"
+                                    *ngFor="let repuesto of repuestos">
+                                {{ repuesto.repNombre }}--{{ repuesto.repPrecio }}$
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Cantidad:</td>
+
+                    <td>
+                        <input
+                                class="form-control"
+                                name="idCantidad"
+                                min="1"
+                                step="1"
+                                placeholder="Ingrese la cantidad"
+                                max="100"
+                                formControlName="cantidad"
+                                type="number">
+                    </td>
+                </tr>
+                </tbody>
+                <button type="submit"
+                        class="btn btn-success"
+                        (click)="addListRepuestos()">
+                    Guardar
+                </button>
+
+                <button class="btn btn-danger" (click)="toogleVentanaRepuesto()">
+                    Cancelar
+                </button>
+            </table>
+
+        </form>
+    </div>
+</div>

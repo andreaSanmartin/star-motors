@@ -1,0 +1,417 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="header">
+
+            </div>
+            <div class="content">
+
+
+                <h1 style="text-align: center;"> <strong>Factura De Reparacion</strong> </h1>
+                <div class="container">
+                    <div id="factura" class="row d-flex justify-content-center">
+                        <div class="col-auto">
+                            <table>
+                                <tr>
+                                    <td class="logo">
+
+                                        <div>
+                                            <img src="{{Concesionaria.conFoto}}" style="height: 100px; width: 100px" alt="bepsa">
+                                            <p>Star Motors S.A.</p>
+                                        </div>
+
+                                        <div>
+                                            OTRO TIPO DE INTERMEDIACION FINANCIERA
+                                            <br>{{Concesionaria.conDireccion}}
+                                            <br>Telefono: {{Concesionaria.conTelefono}}<br> Cuenca - Ecuador
+                                        </div>
+
+                                    </td>
+
+                                    <td class="timbrado"><br>
+                                        <b>Emitido el {{fechaEmision.getDate()}}
+                                            de {{getLongMonthName(fechaEmision.getMonth())}}
+                                            del {{fechaEmision.getFullYear()}}</b>
+                                        <br> Válido hasta el {{fechaExpiracion.getDate()}} de {{getLongMonthName(fechaExpiracion.getMonth())}} del {{fechaExpiracion.getFullYear()}} <br>
+                                        <b>RUC: 0102904323001 </b><br><br>
+                                        <b>FACTURA Nº {{idFactura}}</b> <br>
+
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <!--logo-timbrado -->
+
+                            <table>
+                                <tr>
+                                    <td style="width:1000px;"> <strong>FECHA EMISION:</strong> </td>
+                                    <td><label for="date">Escoja la fecha:  </label>
+                                        <input type="date" class="form-control" id="fecha" [(ngModel)]="date" aria-describedby="cedulaHelp"></td>
+                                    <td class="tg-us36"></td>
+
+                                    <td style="width:1200px;">
+                                        <Strong>CONDICION DE VENTA:</Strong> </td>
+                                    <td class="tg-us36"></td>
+                                    <td style="width:800px;">CONTADO:
+                                        <div class="check">X<br> </div>
+                                    </td>
+                                    <td style="width:800px;">CREDITO:
+                                        <div class="check"><br></div>
+                                    </td>
+                                    <td class="tg-us36"></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:1400px;"> <strong>NOMBRE O RAZON SOCIAL:</strong> </td>
+
+                                    <td style="width:1200px;">
+                                        <div> {{Cliente.persona.perNombre}} {{Cliente.persona.perApellido}} </div>
+                                    </td>
+                                    <td class="tg-us36"></td>
+                                    <td class="tg-us36"></td>
+                                    <td class="tg-us36"></td>
+
+                                    <td class="tg-us36">
+                                        <Strong>RUC/C.I. :</Strong> </td>
+                                    <td class="tg-us36">
+                                        <div>{{Cliente.persona.perCedula}}</div>
+                                    </td>
+
+
+                                    <td class="tg-us36"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-us36">
+                                        <Strong>DIRECCION:</Strong> </td>
+                                    <td class="tg-us36">
+                                        <div>{{Cliente.persona.perDireccion}}</div>
+                                    </td>
+                                    <td class="tg-us36"></td>
+                                    <td class="tg-us36"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-us36">
+                                        <Strong>TELEFONO :</Strong> </td>
+                                    <td class="tg-us36">
+                                        <div>{{Cliente.persona.perTelefono}}</div>
+                                    </td>
+                                    <td class="tg-us36"></td>
+                                    <td style="width:1200px;"> <strong>Nº Chasis:</strong> </td>
+                                    <td class="tg-us36"></td>
+                                    <td class="tg-us36"></td>
+                                    <td class="tg-us36">
+                                        <div>{{Vehiculo.vehNumChasis}}</div>
+                                    </td>
+                                    <td class="tg-us36"></td>
+
+                                </tr>
+                                <tr>
+                                    <td style="width:1000px;"> <strong>MARCA VEHICULO:</strong> </td>
+                                    <td>{{Vehiculo.ejemplar.modelo.marca.marNombre}}</td>
+                                    <td class="tg-us36"></td>
+
+                                    <td style="width:1200px;"><strong>MODELO VEHICULO:</strong> </td>
+                                    <td class="tg-us36"></td>
+                                    <td style="width:800px;">{{Vehiculo.ejemplar.modelo.modNombre}}</td>
+                                    <td class="tg-us36"></td>
+                                </tr>
+
+                            </table>
+                            <!-- Fecha,etc. -->
+
+                            <table class="invoice">
+
+                                <colgroup>
+                                    <col style="width: 5px;">
+                                    <col style="width: 5px;">
+                                    <col style="width: 400px">
+                                    <col style="width: 16px">
+                                    <col style="width: 160px">
+                                    <col style="width: 160px">
+                                </colgroup>
+
+
+                            </table>
+                            <!--</table> invoice table - Body -->
+
+
+                            <table class="invoice">
+
+                                <colgroup>
+                                    <col style="width: 5px;">
+                                    <col style="width: 5px;">
+                                    <col style="width: 400px">
+                                    <col style="width: 16px">
+                                    <col style="width: 160px">
+                                    <col style="width: 160px">
+                                </colgroup>
+
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">COD REPUESTO </th>
+                                        <th rowspan="2">CANT </th>
+                                        <th rowspan="2">DESCRIPCION</th>
+                                        <th rowspan="2">PRECIO <br> UNITARIO</th>
+                                        <th colspan="3">R E P U E S T O S</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>DESCUENTO</th>
+                                        <th>PRECIO TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <!--Table HEAD-->
+
+                                <tbody>
+
+                                    <tr *ngFor="let  orden of ListRepuestos; let index =index">
+                                        <td>{{orden.idRepuesto}}</td>
+                                        <td>
+                                            <tr *ngFor="let  can of listReparacion">
+                                                <td *ngIf="can.idRepuestoAPIRestSQL == orden.idRepuesto" id="cantidad">
+                                                    <tr> {{can.cantidad}}</td>
+                                                </tr>
+                                        </td>
+                                        <td>{{orden.repNombre}}</td>
+                                        <td id="precio">{{orden.repPrecio | currency:'USD'}}</td>
+                                        <td>0%</td>
+                                        <td>
+                                            <tr *ngFor="let totalrepuestos of totalPrecio; let id=index">
+                                                <td *ngIf="index == id">
+                                                    {{totalrepuestos | currency:'USD'}}
+                                                </td>
+                                            </tr>
+                                        </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
+
+                                        <!-- LIQUIDACION /TFOOT-->
+
+                            </table>
+
+
+
+
+                            <table class="invoice">
+
+                                <colgroup>
+                                    <col style="width: 5px;">
+                                    <col style="width: 5px;">
+                                    <col style="width: 400px">
+                                    <col style="width: 16px">
+                                    <col style="width: 160px">
+                                    <col style="width: 160px">
+                                </colgroup>
+
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">COD REPUESTO </th>
+                                        <th rowspan="2">CANT </th>
+                                        <th rowspan="2">DESCRIPCION</th>
+                                        <th rowspan="2">PRECIO <br> UNITARIO</th>
+                                        <th colspan="3">M A N O - D E - O B R A</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>DESCUENTO</th>
+                                        <th>PRECIO TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <!--Table HEAD-->
+
+                                <tbody>
+
+                                    <tr *ngFor="let  mano of listManoObras">
+                                        <td>--</td>
+                                        <td>{{mano.cantidadHoras}}</td>
+                                        <td>CAJA DE CAMBIOS</td>
+                                        <td>{{mano.moPrecioHora | currency:'USD'}}</td>
+                                        <td>0%</td>
+                                        <td>{{totalObra | currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+
+                                    <!-- LIQUIDACION /TFOOT-->
+
+                            </table>
+
+
+
+
+
+
+                            <table class="invoice">
+
+                                <colgroup>
+                                    <col style="width: 5px;">
+                                    <col style="width: 5px;">
+                                    <col style="width: 400px">
+                                    <col style="width: 16px">
+                                    <col style="width: 160px">
+                                    <col style="width: 160px">
+                                </colgroup>
+                                <!--Table HEAD-->
+                                <tbody>
+                                    <!-- SDASDASLDAKLSJDFKLSADFJKSLDFJKSDLFJHSKDLFJSKDLOÑJFÑSDLFJSÑKLFJ -->
+                                    <tr>
+                                        <td colspan="3" style=" text-align: left;">
+                                            <Strong>SUBTOTALES + IVA</Strong> </td>
+
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td>{{decimalSubtotal | currency:'USD'}}</td>
+                                    </tr>
+                                    <!-- SUBTOTAL-->
+
+
+                                    <!-- TOTAL A PAGAR-->
+
+                                </tbody>
+                                <!-- </tbody>-->
+
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2"> <strong> Garantia que cubre: {{GarantiaComercializadora | currency:'USD'}}</strong>
+                                        </td>
+                                        <td class="tg-us36">
+                                            <div></div>
+                                        </td>
+                                        <td></td>
+                                        <td class="tg-us36"></td>
+                                        <td class="tg-us36">
+                                            <div>
+                                                <Strong>Total Con Garantia</Strong> {{TotalFinal | currency:'USD'}}</div>
+                                        </td>
+
+                                        <td class="tg-us36">TOTAL Final
+                                            <div> <strong> {{TotalFinal | currency:'USD'}}</strong> </div>
+                                        </td>
+                                    </tr>
+
+                                </tfoot>
+                                <!-- LIQUIDACION /TFOOT-->
+
+                            </table>
+
+                            <!-- <div class="little">
+                                <span>Impreso en Bepsa del Paraguay S.A.E.C.A. RUC 80011012-9</span>
+                                <span> Triplicado: Contabilidad</span>
+                            </div> -->
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <!-- <button type="button" printSectionId="factura" ngxPrint class="btn btn-primary btn-fill" (click)=" crearImagen()" style="margin: 10px;">Imprimir</button> -->
+                    <button type="button" class="btn btn-primary btn-fill" (click)=" crearImagen()" style="margin: 10px;">Imprimir</button>
+                    <button type="button" (click)="mostrarventanaInput()" class="btn btn-primary btn-fill" style="margin: 10px;">Enviar Factura</button>
+                    <button type="button" (click)="GenerarFacturaReparacion()" class="btn btn-primary btn-fill" style="margin: 10px;">Facturar</button>
+                    <button type="button" routerLink="/pilaInforme" class="btn btn-primary btn-fill" style="float: right; margin-right: 0.6cm;">Volver</button>
+
+                    <!-- <h4>Imagen Creada:</h4>
+                    <img id="correo" src={{image}}> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="ventanaFlotante" class="window-notice" id="window-notice">
+    <div class="content">
+        <div class="content-text">
+            <h2> <strong>Enviando Factura al Cliente.</strong></h2>
+
+        </div>
+        <br>
+        <br>
+        <div>
+            <img src="https://media1.giphy.com/avatars/salih/X2whGMuTDcpt.gif" height=100% width=100% alt="Funny image">
+        </div>
+        <br>
+        <br>
+        <div class="content-buttons"></div>
+    </div>
+</div>
+<div *ngIf="Ventanainput" class="window1-notice" id="window1-notice">
+    <div class="content">
+        <div class="content-text">
+            <h2> <strong>Seleccione la Factura.</strong></h2>
+        </div>
+
+        <br>
+        <br>
+        <div style="align-content: center;">
+            <input type="file" (change)="capturarFile($event)">
+            <!-- <button (click)="subirArchivo()" class="btn btn-primary"></button> -->
+            <br>
+            <button type="button" (click)="subirArchivo()" class="btn btn-primary btn-fill">Enviar Factura</button>
+        </div>
+        <div>
+            <div class="cerrar">
+                <!-- <button type="button" class="btn btn-primary btn-fill" value="X" ></button> -->
+                <button type="button" class="btn btn-danger  btn-fill" (click)="cerrar()">X</button>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="content-buttons"></div>
+    </div>
+</div>

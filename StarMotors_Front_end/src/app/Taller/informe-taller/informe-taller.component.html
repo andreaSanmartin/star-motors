@@ -1,0 +1,231 @@
+<div class="main-content" id="main">
+    <div class="container-fluid">
+        <div class="card" id="principalCard">
+            <div class="header">
+                <h2 align="center">Informe Reparación</h2>
+            </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="card">
+
+                        <div class="card-header">
+                        </div>
+                        <div class="card-body">
+                            <div class="main-content">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <button class="btn btn-primary" (click)="volver()">
+                                                <span class="glyphicon glyphicon-home"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Fecha</label>
+                                                <input type="text" class="form-control" placeholder="Username"
+                                                    value="{{garantia.garFecha}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Cedula</label>
+                                                <input type="text" class="form-control" placeholder="Username"
+                                                    value="{{cliente.persona.perCedula}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Nombres</label>
+                                                <input type="text" class="form-control" placeholder="Username"
+                                                    value="{{cliente.persona.perNombre}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Correo</label>
+                                                <input type="text" class="form-control" placeholder="Username"
+                                                    value="{{cliente.persona.perEmail}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Matricula</label>
+                                                <input type="text" class="form-control" placeholder="Username"
+                                                    value="{{vehiculo.vehMatricula}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Modelo</label>
+                                                <input type="text" class="form-control" placeholder="Username"
+                                                    value="{{vehiculo.ejemplar.modelo.modNombre}}">
+                                            </div>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="header">
+                                                    <h4 class="title" style="text-align: center;">Mano de Obra</h4>
+                                                </div>
+                                                <hr>
+
+                                                <div class="container" *ngIf="statusOrden==1 ||statusOrden==2">
+                                                    <div class="col-sm-3">
+                                                        <label for="">Empleado:</label><br>
+                                                        <input type="text" placeholder="Cédula"
+                                                            [(ngModel)]='idEmpleadoInput' #_idEmpleado>
+                                                        <button type="button"
+                                                            (click)="buscarEmpleadoByCedula(idEmpleadoInput)">Buscar</button>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <form>
+
+                                                    <ng-template #show>
+                                                        <input type="text" name="" id="" class="form-control">
+                                                    </ng-template>
+
+                                                    <div class="col-sm-3">
+                                                        <label for="">Nombre</label><br>
+                                                        <input type="text" name="" id=""
+                                                            value="{{empleado.persona.perNombre}}" class="form-control"
+                                                            #_nombre required>
+                                                    </div>
+
+                                                    <div class="col-sm-3">
+                                                        <label for="">Cedula</label><br>
+                                                        <input type="text" id="" value="{{empleado.persona.perCedula}}"
+                                                            class="form-control" #_cedula required>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group">
+                                                            <label>Cantidad</label>
+                                                            <input type="text" placeholder="10" value=""
+                                                                class="form-control" #_cantidad required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group">
+                                                            <label>Precio</label>
+                                                            <input type="text" placeholder="10.52" value=""
+                                                                class="form-control" #_precio required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" *ngIf="statusOrden==1 ||statusOrden==2">
+                                                        <label for="">Acción</label><br>
+                                                        <button type="button" class="btn btn-primary"
+                                                            (click)="guardarManoDeObra(empleado.idEmpleado, _cantidad.value, _precio.value)">
+                                                            <span class=" glyphicon glyphicon-plus"></span>
+                                                            Agregar</button>
+
+                                                    </div>
+                                                </form>
+                                                <hr>
+                                                <div class="content table-responsive table-full-width">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">Cedula</th>
+                                                                <th scope="col">Nombre</th>
+                                                                <th scope="col">Nro. Horas</th>
+                                                                <th scope="col">Precio</th>
+                                                                <th scope="col">Total</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <tr *ngFor="let mano of dataManoDeObra; let indice=index">
+                                                                <td scope="row">{{indice+1}}</td>
+                                                                <td>{{mano.cedula}}</td>
+                                                                <td>{{mano.nombre}}</td>
+                                                                <td>{{mano.manoObra.cantidadHoras}}</td>
+                                                                <td>{{mano.manoObra.moPrecioHora}}</td>
+                                                                <td>{{mano.manoObra.cantidadHoras*mano.manoObra.moPrecioHora
+                                                                    | number}}</td>
+
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="header">
+                                                    <h4 class="title" style="text-align: center;">Repuestos</h4>
+                                                </div>
+                                                <div class="content table-responsive table-full-width">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">Nombre</th>
+                                                                <th scope="col">Cantidad</th>
+                                                                <th scope="col">Precio</th>
+                                                                <th scope="col">Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let rep of dataRepuesto; let indice=index">
+                                                                <td scope="row">{{indice+1}}</td>
+                                                                <td>{{rep.repuesto.repNombre}}</td>
+                                                                <td>{{rep.cantidad}}</td>
+                                                                <td>{{rep.repuesto.repPrecio}}</td>
+                                                                <td>{{rep.cantidad*rep.repuesto.repPrecio}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="statusOrden==1 || statusOrden==2">
+                                        <div class="container">
+                                            <div class="row">
+                                                <button type="button" class="btn btn-primary"
+                                                    (click)="saveInformeReparacion()"><span
+                                                        class="glyphicon glyphicon-ok"></span> Generar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="statusOrden==3 || statusOrden==6">
+                                        <button type="button" glyphicon glyphicon-ok class="btn btn-primary"
+                                            (click)="downloadInforme()">Descargar Informe</button>
+                                    </div>
+                                    
+                                    <br>
+                                    <div class="alert alert-info " role="alert" *ngIf="alert">
+                                        <h4 class="alert-heading">Se generó correctamente el Informe Reparación Taller
+                                        </h4>
+                                        <hr>
+                                        <p><strong>Garantia Nro.: </strong>{{garantia.idGarantia}}</p>
+                                        <p><strong>Cliente: </strong>{{cliente.persona.perNombre}}</p>
+                                        <p><strong>Matricula: </strong> {{vehiculo.vehMatricula}}</p>
+                                        <hr>
+                                        <button type="button" glyphicon glyphicon-ok class="btn btn-primary"
+                                            (click)="downloadInforme()">Descargar Informe</button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

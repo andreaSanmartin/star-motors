@@ -1,0 +1,18 @@
+table{
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+  thead{
+    background-color: black ;
+  }
+  th{
+      color: white;
+  }
+  label{
+      color: black;
+  }
+  input{
+    border-radius: 5px;
+  }

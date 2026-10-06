@@ -1,0 +1,92 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="header">
+
+            </div>
+            <div class="content">
+
+                <h1>Listado De Cotizaciones</h1>
+
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Fecha de Emisión</th>
+                                    <th scope="col">Cédula</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Modelo</th>
+                                    <th scope="col">
+                                        <tr class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <span class="notification hidden-sm hidden-xs">Estado</span>
+                                                <b class="caret"></b>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" (click)="listCotizacionesByStatus(1)" name="estadoPendiente"> <i class="pe-7s-star"></i> Pendiente</a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-primary btn-xs" (click)="listCotizacionesByStatus(2)" name="estadoProcesado" ngDefaultControl class="dropdown-item fontstyle">
+                                                        <i class="pe-7s-star"></i>Atendido</a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-primary btn-xs" (click)="listCotizacionesByStatus(3)" name="estadoEliminada" ngDefaultControl class="dropdown-item fontstyle">
+                                                        <i class="pe-7s-star"></i>Eliminado</a>
+                                                </li>
+                                            </ul>
+                                        </tr>
+
+                                        <th scope="col">Accion</th>
+
+                                        <tr>
+                                            <th scope="col"><input type="text" class="form-control" id="inputCedula" [(ngModel)]="datefilter" placeholder="Buscar....."></th>
+                                            <th>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                      <button class="btn btn-default" type="button" (click)="findByClienteEjemplar()">Buscar</button>
+                                                    </span>
+                                                    <input type="text" [(ngModel)]="Cedula" placeholder="Cedula" class="form-control">
+                                                </div>
+                                            </th>
+                                            <th scope="col"><input type="text" class="form-control" id="inputNombreCliente" placeholder="Nombre"></th>
+                                            <th scope="col"><input type="text" class="form-control" id="inputModelo" placeholder="Modelo"></th>
+                                        </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cot of listCotizaciones | dateCotizacion : datefilter">
+
+                                    <td>{{cot?.cotFecha}}</td>
+                                    <td>{{cot?.cliente.perCedula}}</td>
+                                    <td>{{cot?.cliente.perNombre}} {{cot?.cliente.perApellido}}</td>
+                                    <td>
+                                        <div *ngFor="let ejm of listEjemplares">
+                                            <div *ngIf="cot?.idEjemplar===ejm?.idEjemplar">
+                                                <p>{{ejm?.modelo.modNombre}}</p>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <!-- <a *ngFor="let ejm of listEjemplares">
+                                        <td *ngIf="cot?.idEjemplar===ejm?.idEjemplar">
+                                            <font color="black">{{ejm?.modelo.modNombre}}</font>
+                                        </td>
+                                    </a> -->
+                                    <td *ngIf="cot?.cotEstado===1">Pendiente</td>
+                                    <td *ngIf="cot?.cotEstado===2">Atendido</td>
+                                    <td *ngIf="cot?.cotEstado===3">Eliminado</td>
+
+                                    <td><a class="btn btn-primary btn-xs" (click)="verDetalleCotizacion(cot?.idCotizacion)">Ver detalles</a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

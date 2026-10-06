@@ -1,0 +1,385 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card">
+
+            <div class="content">
+
+                <h1 style="text-align: center;"><strong>Factura De Venta</strong></h1>
+                <div class="container">
+                    <div id="facturaVenta" class="row d-flex justify-content-center">
+                        <div class="col-auto">
+                            <table>
+                                <tr>
+                                    <td class="logo">
+
+                                        <div>
+                                            <img src="{{concesionaria.conFoto}}" alt="bepsa">
+                                            <p>Star Motors S.A.</p>
+                                        </div>
+
+                                        <div>
+                                            VENTA DE VEHICULO
+                                            <br>{{concesionaria.conDireccion}}
+                                            <br>Teléfono: {{concesionaria.conTelefono}}<br> CUENCA - ECUADOR
+                                        </div>
+
+                                    </td>
+
+                                    <td class="timbrado"><br>
+                                        <b>Emitido el {{fechaEmision.getDate()}}
+                                            de {{getLongMonthName(fechaEmision.getMonth())}}
+                                            del {{fechaEmision.getFullYear()}}</b>
+                                        <br> Válido hasta el {{fechaExpiracion.getDate()}}
+                                        de {{getLongMonthName(fechaExpiracion.getMonth())}}
+                                        del {{fechaExpiracion.getFullYear()}} <br>
+                                        <b>RUC: 0102904323001 </b><br><br>
+                                        <b>FACTURA Nº {{nroFactura}}</b> <br>
+
+                                    </td>
+                                </tr>
+                            </table>
+                            <!--Formulario de los Datos de Clientes-->
+
+                            <form class='Formularios' [formGroup]="formFactura">
+
+
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <td colspan="8">
+                                            <legend><strong>Datos del Cliente</strong></legend>
+                                        </td>
+
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>Cedula:</td>
+                                        <td><input type="text" class="form-control" formControlName="perCedula"
+                                                   name="Cedula" style="width: 90%">
+                                        </td>
+                                        <td *ngIf="!clienteBuscado&&!facturaCreada" >
+                                            <button type="submit" class="btn btn-primary btn-fill"
+                                                    (click)="findClientByCedula()"><i
+                                                    class="glyphicon glyphicon-search"></i></button>
+                                        </td>
+                                        <td *ngIf="clienteBuscado&&!facturaCreada">
+                                            <button  type="submit" class="btn btn-primary btn-fill"
+                                                    (click)="eliminarClienteEnlazado()"><i
+                                                    class="glyphicon glyphicon-remove"></i></button>
+                                        </td>
+                                        <br *ngIf="facturaCreada">
+                                        <br *ngIf="facturaCreada">
+                                        <td>Correo Electronico:</td>
+                                        <td><input type="emailAddress" class="form-control" formControlName="perEmail"
+                                                   name="Correo Electronico" style="width: 90%"
+                                                   value="{{cotizacion.cliente.perEmail}}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nombre:</td>
+                                        <td><input type="text" class="form-control" formControlName="perNombre"
+                                                   name="Nombre" style="width: 90%"
+                                                   value="{{cotizacion?.cliente?.perNombre}}"></td>
+                                        <br>
+                                        <br>
+                                        <td>Direccion:</td>
+                                        <td><input type="text" class="form-control" formControlName="perDireccion"
+                                                   name="Direccion" style="width: 90%"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apellido:</td>
+                                        <td><input type="text" class="form-control" formControlName="perApellido"
+                                                   name="Apellido" style="width: 90%"
+                                                   value="{{cotizacion.cliente.perApellido}}"></td>
+                                        <br>
+                                        <br>
+                                        <td>Telefono:</td>
+                                        <td><input type="text" class="form-control" formControlName="perTelefono"
+                                                   name="Telefono" style="width: 90%"
+                                                   value="{{cotizacion.cliente.perTelefono}}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fecha Nacimiento:</td>
+                                        <td>
+                                            <input type="date" class="form-control" formControlName="perFechaNacimiento"
+                                                   id="fecha" aria-describedby="cedulaHelp"
+                                                   [ngModelOptions]="{standalone: true}">
+                                        </td>
+                                        <br>
+                                        <br>
+                                        <td>Cotización previa:</td>
+                                        <td>
+                                            <label *ngIf="aplicaCotizacion" style="color: #1c7430">APLICA</label>
+                                            <label *ngIf="!aplicaCotizacion" style="color: #bb0502">NO APLICA</label>
+                                        </td>
+                                        <td *ngIf="!facturaCreada">
+                                            <button *ngIf="aplicaCotizacion" class="btn btn-primary btn-fill"
+                                                    (click)="ShowDialogEliminarEnlaceCotizacion()">Desenlazar
+                                            </button>
+                                            <button *ngIf="!aplicaCotizacion" class="btn btn-primary btn-fill"
+                                                    (click)="toogleVentanaEnlaceCotizacion()">Enlazar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <br>
+                            </form>
+
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th *ngIf="!facturaCreada" colspan="8">DETALLE DE COMPRA</th>
+                                    <th *ngIf="facturaCreada" colspan="9">DETALLE DE COMPRA</th>
+                                    <button *ngIf="!facturaCreada" class="btn btn-primary btn-fill"
+                                            style="margin: 10px;"
+                                            (click)="toogleVentanaVehiculo()">
+                                        Buscar vehiculo
+                                    </button>
+                                </tr>
+                                <tr></tr>
+                                <tr>
+                                    <th *ngIf="!facturaCreada"></th>
+                                    <th>Cantidad</th>
+                                    <th>Marca</th>
+                                    <th>Num Chasis</th>
+                                    <th>Num Motor</th>
+                                    <th>Descripcion</th>
+                                    <th>Garantia</th>
+                                    <th>Precio Unitario</th>
+                                    <th>Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr *ngFor="let vehiculo of listDetalleVehiculos">
+                                    <th *ngIf="!facturaCreada">
+                                        <button type="submit" class="btn btn-primary btn-fill"
+                                                (click)="deleteDetalleVehiculo(vehiculo.idVehiculo)"><i
+                                                class="pe-7s-trash"></i></button>
+                                    </th>
+                                    <td>1</td>
+                                    <td>{{vehiculo.ejemplar.modelo.marca.marNombre}}</td>
+                                    <td>{{vehiculo.vehNumChasis}}</td>
+                                    <td>{{vehiculo.vehNumMotor}}</td>
+                                    <td>{{vehiculo.ejemplar.modelo.modNombre}} {{vehiculo.ejemplar.modelo.modAnio}},
+                                        color {{vehiculo.ejemplar.ejmColor}}. RAMW {{vehiculo.vehRAMV}}</td>
+                                    <td>{{vehiculo.ejemplar.modelo.modKmGarantia}} Km</td>
+                                    <td>{{vehiculo.vehPrecio | currency:'USD'}}</td>
+                                    <td>{{vehiculo.vehPrecio | currency:'USD'}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class=" row d-flex justify-content-center pull-right col-md-4">
+                                <table class="table table-bordered table-hover" id="tab_logic_total">
+                                    <tbody>
+                                    <tr>
+
+                                        <th class="text-left">Subtotal 0%:</th>
+                                        <td class="text-center">{{0 | currency:'USD'}}</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <th class="text-left">Descuento:</th>
+                                        <td class="text-center">{{descuento | currency:'USD'}}</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <th class="text-left">Sub Total 12%:</th>
+                                        <td class="text-center">{{subtotal | currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-left">12% IVA:</th>
+                                        <td class="text-center">{{iva12 | currency:'USD'}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th class="text-left">Total:</th>
+                                        <td class="text-center">{{total | currency:'USD'}}</td>
+                                    </tr>
+                                    <td><label>Metodo de Pago:</label></td>
+                                    <td><label type="text" id="Metodo de Pago "> Contado</label></td>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <table>
+                            <tr>
+                                <button class="btn btn-primary btn-fill" style="margin: 10px;"
+                                        (click)="ShowDialogSalir()">
+                                    Salir
+                                </button>
+                                <button *ngIf="!facturaCreada" class="btn btn-primary btn-fill"
+                                        style="margin: 10 px; margin-left: 18cm;"
+                                        (click)="postFactura()">
+                                    Generar venta
+                                </button>
+                                <button *ngIf="facturaCreada" style="margin-left: 9cm;" type="button"
+                                        printSectionId="facturaVenta" ngxPrint [useExistingCss]="true"
+                                        class="btn btn-primary btn-fill">Imprimir
+                                </button>
+                                <button *ngIf="facturaCreada" class="btn btn-primary btn-fill"
+                                        style="margin: 10px; margin-left: 9cm;"
+                                        (click)="toogleVentanaEnvioFactura()">
+                                    Enviar
+                                </button>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="ventanaSeleccionVehiculo" class="window-notice" id="window-selection-car">
+    <div class="content">
+        <form [formGroup]="formSeleccionVehiculo">
+            <table class="table table-bordered">
+                <thead class="table table-bordered">
+                <tr>
+                    <td colspan="8">
+                        <legend><strong>Seleccione un vehiculo</strong></legend>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Marca:</td>
+                    <td><select class='form-control' formControlName="idMarca" (ngModelChange)="onChangeMarca($event)">
+                        <option selected>Seleccione una marca...</option>
+                        <option [value]="marca.idMarca"
+                                *ngFor="let marca of listMarca"> {{marca.marNombre}}</option>
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Modelo:</td>
+
+                    <td><select class='form-control' formControlName="idModelo"
+                                (ngModelChange)="onChangeModelo($event)">
+                        <option selected value="0">Seleccione un modelo...</option>
+                        <option [value]="modelo.idModelo"
+                                *ngFor="let modelo of listModelos"> {{modelo.modNombre}}
+                            - {{modelo.modAnio}}</option>
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Color:</td>
+                    <td><select class='form-control' formControlName="idEjemplar"
+                                (ngModelChange)="onChangeEjemplar($event)">
+                        <option selected>Seleccione un ejemplar...</option>
+                        <option [value]="ejemplar.idEjemplar"
+                                *ngFor="let ejemplar of listEjemplares">{{ejemplar.ejmColor}}</option>
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Estado:</td>
+                    <td>
+                        <label *ngIf="disponible" style="color: #1c7430">DISPONIBLE</label>
+                        <label *ngIf="noDiponible" style="color: #bb0502">NO DISPONIBLE</label>
+                    </td>
+                </tr>
+            </table>
+            <button class="btn btn-primary btn-fill" style="margin: 10px;" (click)="addDetalleVehiculos()">
+                Guardar
+            </button>
+            <button class="btn btn-primary btn-fill" style="margin: 10px;" (click)="toogleVentanaVehiculo()">
+                Cancelar
+            </button>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="ventanaEnlaceCotizacion" class="window-notice" id="window-enlace-cotizacion">
+    <div class="content">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <td colspan="8">
+                    <legend><strong>Enlace de cotización</strong></legend>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8" class="input-group">
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" (click)="findByClienteEjemplar()">Buscar</button>
+                    </span>
+                    <input type="text" [(ngModel)]="cedulaCotizacion" placeholder="Cedula" class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Fecha de Emisión</th>
+                <th scope="col">Cédula</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Modelo</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let cot of listCotizaciones">
+
+                <td>{{cot.cotFecha}}</td>
+                <td>{{cot.cliente.perCedula}}</td>
+                <td>{{cot.cliente.perNombre}} {{cot.cliente.perApellido}}</td>
+                <a *ngFor="let ejm of listEjemplaresCotizados">
+                    <td *ngIf="cot.idEjemplar===ejm.idEjemplar">
+                        <font color="black">{{ejm.modelo.modNombre}}</font>
+                    </td>
+                </a>
+
+                <td><a class="btn btn-primary btn-xs" (click)="enlazarCotizacion(cot.idCotizacion)">Enlazar</a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <button class="btn btn-primary btn-fill" (click)="toogleVentanaEnlaceCotizacion()">
+            Cancelar
+        </button>
+    </div>
+</div>
+<div *ngIf="ventanaEnvioFactura" class="window-notice" id="window1-notice">
+    <div class="content">
+        <div class="content-text">
+            <h2><strong>Seleccione la Factura.</strong></h2>
+        </div>
+
+        <br>
+        <br>
+        <div style="align-content: center;">
+            <input type="file" (change)="capturarFile($event)">
+        </div>
+        <br>
+        <br>
+        <div class="content-buttons">
+            <button type="button" class="btn btn-danger  btn-fill" (click)="toogleVentanaEnvioFactura()">Cancelar
+            </button>
+            <button type="button" (click)="subirArchivo()" class="btn btn-primary btn-fill">Enviar Factura</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="ventanaFlotante" class="window-notice" id="window-notice">
+    <div class="content">
+        <div class="content-text">
+            <h2><strong>Enviando Factura al Cliente.</strong></h2>
+        </div>
+        <br>
+        <br>
+        <div>
+            <img src="https://media1.giphy.com/avatars/salih/X2whGMuTDcpt.gif" height=100% width=100% alt="Funny image">
+        </div>
+        <br>
+        <br>
+        <div class="content-buttons"></div>
+    </div>
+</div>

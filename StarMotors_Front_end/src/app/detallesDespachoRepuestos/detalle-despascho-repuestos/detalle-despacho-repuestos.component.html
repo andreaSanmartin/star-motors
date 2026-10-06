@@ -1,0 +1,88 @@
+<button style="margin-left: 86vw;" type="button" [routerLink]="['/quotes']"><i class="fas fa-times-circle"></i>
+</button>
+<br>
+<h1>Detalles de la solicitud de despacho de repuestos</h1>
+<div class=" container">
+    <div class="row-md-auto ">
+        <table class="table table-bordered" id="tablaclient">
+            <thead>
+            <tr>
+                <th scope="col" colspan="6">Datos del Empleado que despacha</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let emp of listEmpleadoDespacha">
+                <th scope="col">Nombre</th>
+                <td>{{emp.persona.perNombre}}
+                    {{emp.persona.perApellido}}</td>
+                <th scope="col">Cedula</th>
+                <td>{{emp.persona.perCedula}}</td>
+                <th scope="col">Telefono</th>
+                <td> {{emp.persona.perTelefono}} </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="col-md-auto">
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col" colspan="3">Datos de la Garantia</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="col">Fecha</th>
+                    <td>{{garantia.garFecha}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Fallos</th>
+                    <td> {{garantia.fallosSistemasVehiculo}} </td>
+                </tr>
+                <tr>
+                    <th scope="col">Descripcion</th>
+                    <td>{{garantia.garDescripcion}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col-md-auto">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col" colspan="4">Listado de Respuestos</th>
+                </tr>
+                <tr>
+                    <th>Nombre del repuesto</th>
+                    <th>Precio</th>
+                    <th>Marca</th>
+                    <th>Cantidad</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let cant of repuestoSolicitud.repuestosList; let i = index">
+                <tr *ngFor="let item of listRepuestos">
+                    <td *ngIf="item.idRepuesto === cant.idRepuestoAPIRestSQL">{{item.repNombre}}</td>
+                    <td *ngIf="item.idRepuesto === cant.idRepuestoAPIRestSQL">{{item.repPrecio}} </td>
+                    <td *ngIf="item.idRepuesto === cant.idRepuestoAPIRestSQL">{{item.marca.marNombre}} </td>
+                    <td *ngIf="item.idRepuesto === cant.idRepuestoAPIRestSQL">{{cant.idRepuestoAPIRestSQL}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="button"
+                    class="btn btn-primary btn-fill"
+                    style="margin-left: 25px; color: #000;"
+                    (click)="volver()">
+                Volver
+            </button>
+            <button *ngIf="!solicitudDespachada" type="button"
+                    class="btn btn-primary btn-fill"
+                    style=" color: #000; margin-left: 20cm"
+                    (click)="despacharRepuestos()">
+                Despachar repuestos
+            </button>
+        </div>
+        <br>
+
+    </div>
+</div>

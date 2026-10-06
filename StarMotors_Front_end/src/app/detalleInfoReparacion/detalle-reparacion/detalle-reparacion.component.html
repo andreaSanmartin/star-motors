@@ -1,0 +1,96 @@
+<br>
+<h1 style="text-align:center"> <strong>Detalles De la Reparacion</strong> </h1>
+<div class=" container">
+    <div class="row justify-content-md-center">
+
+        <div class="col-md-auto">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="3">Datos del cliente </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="col">Nombre del Cliente:</th>
+                        <td>{{Cliente.persona.perNombre}} {{Cliente.persona.perApellido}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Direccion:</th>
+                        <td>{{Cliente.persona.perDireccion}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Telefono:</th>
+                        <td> {{Cliente.persona.perTelefono}} </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Email:</th>
+                        <td>{{Cliente.persona.perEmail}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-auto">
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="3">Datos del vehiculo </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="col">Marca del Auto:</th>
+                        <td>{{Vehiculo.ejemplar.modelo.marca.marNombre}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Numero de Chasis del Vehiculo:</th>
+                        <td> {{Vehiculo.vehNumChasis}} </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Registro Aduanero de Matriculacion Vehicular:</th>
+                        <td>{{Vehiculo.vehRAMV}} </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Año del Auto:</th>
+                        <td>{{Vehiculo.ejemplar.modelo.modAnio}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="col">Imagen del vehiculo:</th>
+                        <td><img width="400px" src="{{Vehiculo.ejemplar.modelo.modFoto}}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+        <div class="col-md-auto">
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="3">Datos de la Reparacion </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="col">Fecha del Informe de Reparacion:</th>
+                        <td>{{Garantia.reclamo.informeProformaReparacion.ordenReparacion.informeReparacionTaller.informeReparacionComercializadora.ircFecha}}</td>
+                    </tr>
+                    <tr *ngFor="let  fallos of ListFallos">
+                        <th scope="col">Fallos:</th>
+                        <td>{{fallos}}</td>
+                    </tr>
+                    <tr *ngFor="let  orden of ListRepuestos1">
+                        <th scope="col">Nombre Repuesto:</th>
+                        <td> {{orden.repNombre}} </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--  <button style="align-content: center;" (click)="Facturar(Garantia.idGarantia)" type="button" class="btn btn-primary">Realizar Facturacion</button>
+            --><a (click)="Facturar(Garantia.idGarantia)" class="btn-flotante">Realizar la Factura</a>
+        </div>

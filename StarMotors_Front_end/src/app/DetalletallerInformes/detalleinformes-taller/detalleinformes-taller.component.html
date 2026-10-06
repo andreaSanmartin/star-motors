@@ -1,0 +1,101 @@
+
+<div class="container">
+    
+    <div class="card text-center">
+        <div><label for="fecha">Escoja la fecha de emisión del documento:</label>
+          <input [(ngModel)]="fecha" type="date"></div>       
+          <p>Fecha: <strong>{{fecha}}</strong></p>
+      </div>
+      <div class="card text-center">
+        <div class="content" id="informe" style="margin: auto;">
+          <div class="card-header" style="margin-top: 5px;">
+            <h1 style="text-align: center;"> <strong>INFORME CONCESIONARIA</strong></h1>
+          </div>
+    <div class="card-body">
+    <div class="row justify-content-md-center">
+        <div class= "containerss">      
+          <div class="row" style="margin: auto;">
+            <p class="card-text" style="text-align: justify; margin: 15px;">
+              Estimado(a) Cliente: <strong>{{cliente?.persona.perNombre}} {{cliente?.persona.perApellido}} </strong> <br>
+              Reciba un coordial saludo de parte de la <strong>CONCESIONARIA STARMOTORS</strong>. <br>
+              Mediante este documento le damos a conocer el informe del taller a la concensionaria
+              la descripcion, la garantia que cubre, los datos del taller y los datos del vehiculo.
+            </p>
+          </div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">       
+        <h1 style="text-align: center;"> <small><strong>DETALLES</strong></small></h1>
+        <div class="col-md-auto">
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="3">Datos del vehiculo </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="col">Marca del Auto</th>
+                        <td>{{Vehiculo.ejemplar.modelo.marca.marNombre}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Numero de Chasis del Vehiculo</th>
+                        <td> {{Vehiculo.vehNumChasis}} </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Registro Aduanero de Matriculacion Vehicular</th>
+                        <td>{{Vehiculo.vehRAMV}} </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Año del Auto</th>
+                        <td>{{Vehiculo.ejemplar.modelo.modAnio}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Mas datos del cliente</th>
+                        <td>descripcion </td>
+                    </tr>
+                  
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-auto">
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                       
+                        <th scope="col" colspan="3">Datos del Taller </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="col">Fallos del Sistema</th>
+                        <td *ngFor="let fallo of fallosSistema" class="text-left">{{fallo}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Descripcion</th>
+                        <td>{{Garantia.reclamo.informeProformaReparacion.ordenReparacion.informeReparacionTaller.ireDescripcion}}</td>
+                    </tr>
+            
+                    <tr>
+                        <th scope="col">Mano de Obra</th>
+                        <td> Cantididad Hora <br>
+                            {{cantidadHora}}  <br>
+                            --------------------------- <br>
+                            Precio Hora <br>
+                            {{precioHora}}</td>
+                    </tr>
+                    <tr *ngFor="let item of repuestosb">
+                        <th scope="col">Nombre del repuesto</th>
+                        <td>{{item.repNombre}}</td>
+                    </tr>
+                
+                </tbody>
+            </table>
+        </div>
+            <button type="button" class="btn btn-primary" style="float: left; margin-right: 0.6cm;" (click)="realizarinforme(Garantia.idGarantia)">Concesionaria </button>
+          </div>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="header">
+
+            </div>
+            <div class="content">
+                <h1 style="text-align: center">Detalle de Garantia</h1>
+                <div class=" container">
+
+                    <div class="row justify-content-md-center">
+                        <!-- Datos del cliente que realiza la cotizacion -->
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" colspan="3">Datos del cliente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <td>{{cliente.persona.perNombre}} {{cliente.persona.perApellido}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Direccion</th>
+                                    <td>{{cliente.persona.perDireccion}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Telefono</th>
+                                    <td> {{cliente.persona.perTelefono}} </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Email</th>
+                                    <td>{{cliente.persona.perEmail}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Datos del vehiculo que esta siendo cotizado -->
+                        <div class="col-md-auto">
+                            <table class="table table-bordered">
+                                <thead>
+
+                                    <tr>
+                                        <th colspan="3">Datos del vehiculo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="col">Marca del Auto</th>
+                                        <td>{{vehiculo.ejemplar.modelo.marca.marNombre}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Modelo del Auto</th>
+                                        <td>{{vehiculo.ejemplar.modelo.modNombre}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Numero de Chasis del Vehiculo</th>
+                                        <td> {{vehiculo.vehNumChasis}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Registro Aduanero de Matriculacion Vehicular</th>
+                                        <td>{{vehiculo.vehRAMV}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Año del Auto</th>
+                                        <td>{{vehiculo.ejemplar.modelo.modAnio}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="col">Imagen del vehiculo</th>
+                                        <td><img width="400px" src={{vehiculo.ejemplar.modelo.modFoto}}></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Detalle de la cotizacion -->
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" colspan="3">Datos de la Cotización</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <td>{{garantia.garFecha}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Fallos</th>
+                                    <td> {{garantia.fallosSistemasVehiculo}} </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Descripcion</th>
+                                    <td>{{garantia.garDescripcion}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="align-items: center;">
+                            <button type="submit" style="margin-right: 15vw; " class="btn btn-primary btn-fill" (click)="volver()">Volver</button>
+                            <button *ngIf="garantia.garEstado == 1 " style="margin-left: 36vw; " type="button" class="btn btn-primary btn-fill" (click)="verGarantia(garantia.idGarantia)">Generar Reclamo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

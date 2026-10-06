@@ -1,0 +1,146 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="header">
+
+            </div>
+            <div class="content">
+
+                <br>
+                <div>
+                    <h1 style="text-align: center;">Informe De Rechazo</h1>
+                    <div class="col-4">
+                        <div class="row" style="margin: auto;">
+                            <h3>Motivo</h3>
+                            <div class="form-group">
+                                <label class="form-label">Motivos Rechazo</label>
+                                <input type="text" class="form-control" id="idGarantia" [(ngModel)]="reclamo" aria-describedby="fechaHelp" [ngModelOptions]="{standalone: true}">
+                                <button type="submit" class="btn btn-primary btn-fill" (click)="agregarRazones()">Agregar Razon</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div id="reporte">
+
+
+                        <div class="row" style="margin: auto;">
+                            <p style="text-align: right;">Fecha: <strong>{{fecha}}</strong></p>
+                            <p class="card-text" style="text-align: justify;">
+                                Estimado(a) Cliente: <strong>{{Cliente.persona.perNombre}} {{Cliente.persona.perApellido}} </strong> <br> Reciba un coordial saludo de parte de la Comercializadora <strong>{{comercializadora.comNombre}}</strong> <br> Mediante
+                                este informe le damos a conocer que se a rechazado su garantia de reparación donde se da conocer, el motivo del rechazo :
+                            </p>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" colspan="3">Motivos </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let reclamos of listreclamos; let idreclamos = index">
+                                    <th scope="col">{{reclamos}}</th>
+                                    <th>
+                                        <button style="display: visible" type="submit" class="btn btn-primary btn-fill" (click)="reomeveItem(idreclamos)"><i class="pe-7s-trash" >-</i></button>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="col-md-auto">
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" colspan="3">Datos del vehiculo </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="col">Marca del Auto</th>
+                                        <td>{{Vehiculo.ejemplar.modelo.marca.marNombre}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Modelo del Auto</th>
+                                        <td>{{Vehiculo.ejemplar.modelo.modNombre}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Numero de Chasis del Vehiculo</th>
+                                        <td> {{Vehiculo.vehNumChasis}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Registro Aduanero de Matriculacion Vehicular</th>
+                                        <td>{{Vehiculo.vehRAMV}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Año del Auto</th>
+                                        <td>{{Vehiculo.ejemplar.modelo.modAnio}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="col">Imagen del vehiculo</th>
+                                        <td><img width="400px" src={{Vehiculo.ejemplar.modelo.modFoto}}></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center" style="align-justify:center;">
+        <table>
+            <tr>
+                <button class="btn btn-primary btn-fill" style="margin: 10px;" routerLink="/dashboard">
+                Cancelar
+            </button>
+                <button type="submit" class="btn btn-primary btn-fill" (click)="GuardarRechazo()">Guardar Reclamo</button>
+                <button type="button" printSectionId="reporte" ngxPrint class="btn btn-primary btn-fill" style="margin: 10px;">Imprimir</button>
+                <button type="button" (click)="mostrarventanaInput()" class="btn btn-primary btn-fill" style="margin: 10px;">Enviar informe</button>
+            </tr>
+        </table>
+    </div>
+
+
+    <div *ngIf="ventanaFlotante" class="window-notice" id="window-notice">
+        <div class="content">
+            <div class="content-text">
+                <h2> <strong>Enviando Factura al Cliente.</strong></h2>
+
+            </div>
+            <br>
+            <br>
+            <div>
+                <img src="https://media1.giphy.com/avatars/salih/X2whGMuTDcpt.gif" style="align-content: center;" width="50px" height="50px" alt="Funny image">
+            </div>
+            <br>
+            <br>
+            <div class="content-buttons"></div>
+        </div>
+    </div>
+    <div *ngIf="Ventanainput" class="window1-notice" id="window1-notice">
+        <div class="content">
+            <div class="content-text">
+                <h2> <strong>Seleccione la Factura.</strong></h2>
+            </div>
+
+            <br>
+            <br>
+            <div style="align-content: center;">
+                <input type="file" (change)="capturarFile($event)">
+                <!-- <button (click)="subirArchivo()" class="btn btn-primary"></button> -->
+                <br>
+                <button type="button" (click)="subirArchivo()" class="btn btn-primary btn-fill">Enviar Informe</button>
+            </div>
+            <div>
+                <div class="cerrar">
+                    <!-- <button type="button" class="btn btn-primary btn-fill" value="X" ></button> -->
+                    <button type="button" class="btn btn-danger  btn-fill" (click)="cerrar()">X</button>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="content-buttons"></div>
+        </div>
+    </div>

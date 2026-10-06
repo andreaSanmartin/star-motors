@@ -1,0 +1,101 @@
+<body>
+
+    <br>
+    <br>
+    <div class="container">
+        <div class="table-title">
+            <h1 style="text-align: center;"> <strong>Informes Taller</strong></h1>
+        </div>
+        <table class="table-fill">
+            <thead>
+                <tr>
+                    <th class="text-left">Fallos del Sistema</th>
+                    <th class="text-left">Marca Vehiculo</th>
+                    <th class="text-left">Modelo Vehiculo</th>
+                    <th class="text-left">Fecha</th>
+                    <th class="text-left">Nombre y Apellido</th>
+                    <th class="text-left">
+                <tr class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="notification hidden-sm hidden-xs">Estado</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle"
+                                (click)="ListarIformesReparacionByStatus(1)" name="estadoPendiente"> <i
+                                    class="pe-7s-star"></i> Pendiente</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-xs" (click)="ListarIformesReparacionByStatus(2)"
+                                name="estadoProcesado" ngDefaultControl class="dropdown-item fontstyle"> <i
+                                    class="pe-7s-star"></i>Atendido</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-xs" (click)="ListarIformesReparacionByStatus(3)"
+                                name="estadoEliminada" ngDefaultControl class="dropdown-item fontstyle"> <i
+                                    class="pe-7s-star"></i>Eliminado</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-xs" (click)="ListarIformesReparacionByStatus(4)"
+                                name="estadoEliminada" ngDefaultControl class="dropdown-item fontstyle"> <i
+                                    class="pe-7s-star"></i>Rechazado</a>
+                        </li>
+                    </ul>
+                </tr>
+                </th>
+                </tr>
+            </thead>
+            <tbody class="table-hover">
+                <tr *ngFor="let orden of listIformes; let informes=index">
+                    <a *ngFor="let fallo of FallosSistemasVehiculo let fa=index">
+                        <td *ngIf= "fa==informes" class="text-left">
+                            <Font color="black"> {{fallo}} </Font>
+                        </td>
+                    </a>
+
+                    <td>
+                        <div *ngFor="let marca of listVehiculos; let mar=index">
+                            <div *ngIf="mar==informes">
+                                <p>{{marca.modelo.marca.marNombre}}</p>
+                            </div>
+                        </div>
+
+                    </td>
+
+
+                    <td>
+                        <div *ngFor="let modelo of listVehiculos; let mode=index">
+                            <div *ngIf="mode==informes">
+                                <p>{{modelo.modelo.modNombre}}</p>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div *ngFor="let Fecha of listVehiculos; let fech=index">
+                            <div *ngIf="fech==informes">
+                                <p>{{orden.reclamo.informeProformaReparacion.ordenReparacion.orFecha}}</p>
+                            </div>
+                        </div>
+                    </td>
+ 
+                    <td>
+                        <div *ngFor="let client of ListaClientes; let cli=index">
+                            <div *ngIf="cli==informes">
+                                <p>{{client.persona.perNombre}}{{client.persona.perApellido}}</p>
+                            </div>
+                        </div>
+
+                    </td>
+
+                    <td class="text-left"><button type="button" class="btn btn-primary"
+                            (click)=" Vermas(orden.idGarantia)">Ver mas</button></td>
+                            
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</body>

@@ -1,0 +1,296 @@
+<div class="main-content">
+  <div class="card text-center">
+    <div class="formInforme">
+      <h1 style="padding-top: 35px;">Informe de Reparaciones a Realizarse</h1>
+      <form [formGroup]="formDataInforme"> 
+        <table class="table table-bordered border border-primary">
+          <thead class="table table-bordered border-primary">
+          </thead>
+          <tbody>
+            <tr>
+              <div class="col-auto">
+                <p>1. Ingrese la fecha de emisión del informe: </p>
+                <label for="date">Escoja la fecha:  </label>
+               <!--  <input type="date" class="form-control" id="fecha" [(ngModel)]="date" aria-describedby="cedulaHelp" [ngModelOptions]="{standalone: true}"> -->
+                <input type="date" class="form-control" id="fecha" formControlName="fecha" aria-describedby="cedulaHelp">
+              </div>
+            </tr>
+            <tr>
+              <td>
+                <div class="col-auto">
+                  <label for="detalle"> <strong>Detalle de Reparación:</strong></label>
+                  <p>2. Ingrese una breve descripción de la reparación a realizarse: </p>
+                  <!-- <textarea class="form-control" [(ngModel)]="detalle" name="detalle"
+                    placeholder="Ingrese los detalles de la reparaciones a realizar" id="floatingTextarea" required></textarea> -->
+                    <textarea class="form-control" formControlName="detalle" name="detalle"
+                    placeholder="Ingrese los detalles de la reparaciones a realizar" id="floatingTextarea" required></textarea>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>3. Agrege Mano de Obra y los repuestos: </p>
+                <button id="repuestos" class="btn btn-primary btn-fill" (click)="toogleVentanaRepuesto()">Agregar
+                  Repuestos</button>
+                <button id="repuestos" class="btn btn-primary btn-fill" (click)="toogleVentanaManoObra()">Agregar Mano
+                  de Obra</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    
+    </div>
+    <div class="card text-center" id="informe">
+      <div class="content" style="margin: auto;">
+        <div class="card-header" style="margin-top: 5px;">
+          <h2 style="padding-top: 10px;">Informe de Reparaciones a Realizar</h2>
+        </div>
+        <div class="card-body">
+          <div class="row" style="margin: auto;">
+            <h5 class="card-title"><strong>{{comercializadora?.comNombre}}</strong></h5>
+            <h5 class="card-title">Dirección: <strong>{{comercializadora?.comDireccion}}</strong></h5>
+            <h5 class="card-title">Correo: <strong>{{comercializadora?.comCorreo}}</strong></h5>
+            <h5 class="card-title">Teléfono: <strong>{{comercializadora?.comTelefono}}</strong></h5>
+          </div>
+          <div class="row" style="margin: auto;">
+            <p style="text-align: right;">Fecha: <strong>{{date}}</strong></p>
+            <p class="card-text" style="text-align: justify;">
+              Estimado(a) Cliente: <strong>{{cliente?.persona.perNombre}} {{cliente?.persona.perApellido}} </strong>
+              <br>
+              Reciba un coordial saludo de parte de la <strong>{{comercializadora?.comNombre}}</strong>.
+              <br>
+              Mediante este documento le damos a conocer la proforma de reparación donde consta
+              el listado de repuestos y el costo de mano de obra para realizar el proceso de reparación del vehiculo con
+              el número de placa <strong>{{vehiculo?.vehMatricula}}</strong>, modelo:
+              <strong>{{vehiculo?.ejemplar.modelo.modNombre}}</strong>,
+              color: <strong>{{vehiculo?.ejemplar.ejmColor}}</strong>.
+            </p>
+            <p>Las reparaciones a realizarse son:</p>
+            <p><strong>{{detalle}}</strong></p>
+          </div>
+          <div class="row" style="margin: auto;">
+            <h3>Repuestos</h3>
+            <div>
+              <!-- <p style="align-items: center; color: red;" *ngIf="listSelecRepuestos"> <strong>¡Por favor! Añada un
+                  repuesto en el formulario de la parte superior</strong></p> -->
+            </div>
+            <div class="col-4">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre Repuesto</th>
+                    <th scope="col">Precio Unitario Repuesto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of listSelecRepuestos; index as i">
+                    <td>{{item.repNombre}}</td>
+                    <td>{{item.repPrecio | currency:'USD'}}</td>
+                    <td>{{listCantidades[i]}}</td>
+                    <td>
+                      <button type="button" class="btn btn-danger btn-fill" (click)="reomeveItem(i)">Quitar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="row d-flex justify-content-center pull-right col-md-4">
+                <table class="table table-bordered table-hover" id="tab_logic_total">
+                  <tbody>
+                    <tr>
+                      <th class="text-left">SubTotal</th>
+                      <td class="text-center">{{totalR | currency:'USD'}}</td>
+                    </tr>
+                    <tr>
+                      <th class="text-left">Iva 12%</th>
+                      <td class="text-center">{{ivaCantidad | currency:'USD'}}</td>
+                    </tr>
+                    <tr>
+                      <th class="text-left">Total</th>
+                      <td class="text-center">{{ivaTotal | currency:'USD'}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row" style="margin: auto;">
+            <h3>Mano de Obra</h3>
+            <div>
+              <!-- <p style="align-items: center; color: red;" *ngIf="listSelecManoObra"> <strong>¡Por favor! Ingrese un
+                  registro de Mano de Obra en el formulario de la parte superior</strong></p>
+            </div> -->
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Cantidad (Hrs)</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of listSelecManoObra">
+                  <th scope="row">1</th>
+                  <td>{{item.numManoObra}} Hrs</td>
+                  <td>{{item.moPrecioHoras}} </td>
+                  <td>{{this.totalM | currency:'USD'}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="row d-flex justify-content-center pull-right col-md-4">
+              <table class="table table-bordered table-hover" id="tab_logic_total">
+                <tbody>
+                  <tr>
+                    <th class="text-left">Total</th>
+                    <td class="text-center">{{totalM | currency:'USD'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <br>
+          <br>
+          <br>
+          Proforma Válida por: <strong>30 días</strong>
+        </div>
+      </div>
+
+    </div>
+
+    
+  </div>
+  <div class="card text-center">
+    <button style="margin: 16px;" class="btn btn-primary btn-fill" (click)="verDetalleReclamo(garantia.idGarantia)">Volver</button>
+    <button [disabled]="formDataInforme.invalid" *ngIf="!infoGen" style="margin: 16px;" (click)="postInforme()" class="btn btn-primary btn-fill">Guardar informe</button>
+    <button *ngIf="infoGen" style="margin: 16px;" type="button" printSectionId="informe" ngxPrint [useExistingCss]="true"
+      class="btn btn-primary btn-fill">Imprimir Informe</button>
+    <button *ngIf="infoGen" style="margin: 16px;" (click)="mostrarventanaInput()" class="btn btn-primary btn-fill">Enviar
+      Informe</button>
+  </div>
+
+  <div *ngIf="ventanaSeleccionRepuesto" class="window-notice" id="window-notice">
+    <div class="content">
+      <table class="table table-bordered">
+        <thead class="table table-bordered">
+          <tr>
+            <td colspan="8">
+              <legend><strong>Seleccione un Repuesto</strong></legend>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Marca:</td>
+            <td><select class='form-control' [(ngModel)]="idMarca" (ngModelChange)="onChangeMarca($event)">
+                <option selected>Seleccione una marca...</option>
+                <option [value]="marca.idMarca" *ngFor="let marca of listMarcas"> {{marca.marNombre}}</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <form [formGroup]="formSelecRepuestos" (ngSubmit)="addListRepuestos()">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+              <td>Repuesto:</td>
+              <td><select class='form-control' formControlName="idRepuestoAPIRestSQL"
+                  (ngModelChange)="onChangeRepuesto($event)">
+                  <option selected value="0">Seleccione un repuesto...</option>
+                  <option [value]="repuesto.idRepuesto" *ngFor="let repuesto of listRepuestos"> {{repuesto.repNombre}}
+                    - {{repuesto.repPrecio}}</option>
+                </select>
+              </td>
+          </tr>
+          <tr>
+            <td>Cantidad:</td>
+            <td>
+              <input min="1" class='form-control' formControlName="cantidad" type="number">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button id="repuestos" [disabled]="formSelecRepuestos.invalid" class="btn btn-primary btn-fill" type="submit">
+        Guardar
+      </button>
+      <button id="repuestos" class="btn btn-danger btn-fill" (click)="toogleVentanaRepuesto()">
+        Cancelar
+      </button>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="ventanaSeleccionManoObra" class="window-notice" id="window-notice">
+    <div class="content">
+      <form [formGroup]="formSeleccionManoObra">
+        <table class="table table-bordered">
+          <thead class="table table-bordered">
+            <tr>
+              <td colspan="8">
+                <legend><strong>Agrege la mano de obra</strong></legend>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Precio:</td>
+              <td>
+                <input min="1" class="form-control" formControlName="moPrecioHoras" name="precio" type="number">
+              </td>
+            </tr>
+            <tr>
+              <td>Número de Horas de Reparación:</td>
+              <td>
+                <input min="1" class="form-control" formControlName="numManoObra" name="NumHoras" type="number">
+              </td>
+            </tr>
+        </table>
+        <button id="repuestos" [disabled]="formSeleccionManoObra.invalid" class="btn btn-primary btn-fill" (click)="addListManoObra()">
+          Guardar
+        </button>
+        <button id="repuestos" class="btn btn-danger btn-fill" (click)="toogleVentanaManoObra()">
+          Cancelar
+        </button>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="ventanaSeleccionEmail" class="window1-notice" id="window1-notice">
+    <div class="content">
+      <div class="content-text">
+        <h2> <strong>Seleccione la Factura.</strong></h2>
+      </div>
+      <br>
+      <br>
+      <div style="align-content: center;">
+        <input type="file" (change)="capturarFile($event)">
+        <button (click)="subirArchivo()" class="btn btn-primary btn-fill">Enviar Factura</button>
+        <br>
+        <!-- <button id="repuestos" type="button" (click)="subirArchivo()" class="btn btn-primary">Enviar Factura</button>
+          <button id="repuestos" type="button" class="btn btn-primary">Cancelar</button> -->
+      </div>
+      <br>
+      <br>
+      <div class="content-buttons"></div>
+    </div>
+    <div *ngIf="ventanaFlotante" class="window-notice" id="window-notice">  
+      <div class="content">
+        <div class="content-text">
+          <h2> <strong>Enviando Factura al Cliente.</strong></h2>
+        </div>
+        <br>
+        <br>
+        <div>
+          <img src="https://media1.giphy.com/avatars/salih/X2whGMuTDcpt.gif" height=25% width=25% alt="Funny image">
+        </div>
+        <br>
+        <br>
+        <div class="content-buttons"></div>
+      </div>
+    </div>
+  </div>

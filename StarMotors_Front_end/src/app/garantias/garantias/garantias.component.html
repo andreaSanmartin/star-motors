@@ -1,0 +1,145 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title" style="text-align: center;">Listado de Garantías</h4>
+                        <div class="container">
+                        </div>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <!-- <th scope="col">Cedula &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Nombres y Apellidos</th> -->
+                                    <td>Cedula</td>
+                                    <td>Nombre Apellido</td>
+
+                                    <th scope="col">
+                                        <tr class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <span class="notification hidden-sm hidden-xs">Estado</span>
+                                                <b class="caret"></b>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" (click)="filtrarGarantiasByStatus(1)" name="estadoPendiente"> <i class="pe-7s-star"></i> Pendiente</a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-primary btn-xs" (click)="filtrarGarantiasByStatus(2)" name="estadoProcesado" ngDefaultControl class="dropdown-item fontstyle">
+                                                        <i class="pe-7s-star"></i>Atendido</a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-primary btn-xs" (click)="filtrarGarantiasByStatus(3)" name="estadoEliminada" ngDefaultControl class="dropdown-item fontstyle">
+                                                        <i class="pe-7s-star"></i>Eliminado</a>
+                                                </li>
+                                            </ul>
+                                        </tr>
+                                        <th scope="col">Accion </th>
+                                        <th scope="col"></th>
+                                        <tr>
+                                            <th scope="col" colspan="1"><input type="text" class="form-control" id="inputCedula" [(ngModel)]="datefilter" placeholder="Buscar....."></th>
+                                            <th scope="col" colspan="2"><input type="text" class="form-control" id="inputCedula" [(ngModel)]="filtro" placeholder="Buscar....."></th>
+                                            <th scope="col"></th>
+                                            <th scope="col"></th>
+                                        </tr>
+
+                            </thead>
+                            <tbody *ngFor="let garantia of listGarantias |  dateGarantia : datefilter ; ">
+
+                                <!--  <tr *ngFor="let client of ListaClientes | filtroGarantia: filtro;">
+                                    <td> {{garantia.garFecha}}</td>
+                                    <td>
+                                        <div >
+                                            <div *ngIf="client.idCliente == garantia.idCliente ">
+                                                <p> {{client.persona.perCedula}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <div *ngIf="client.idCliente == garantia.idCliente">
+                                                <p> {{client.persona.perNombre}} {{client.persona.perApellido}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><a class="btn btn-primary btn-xs btn-fill" (click)="verGaranita(garantia.idGarantia)">Ver detalles</a>
+                                    </td>
+                                    <td *ngIf="garantia.garEstado===1">Pendiente</td>
+                                    <td *ngIf="garantia.garEstado===2">Atendido</td>
+                                    <td *ngIf="garantia.garEstado===3">Eliminado</td>
+                                    <td>
+                                        <button type="button" class="btn btn-dark btn-fill" *ngIf="garantia.garEstado ==1" (click)="EliminarSolicitudesGarantia(garantia.idGarantia)">Eliminar</button>
+                                    </td>
+                                </tr> -->
+
+                                <tr *ngFor="let client of ListaClientes | filtroGarantia: filtro; ">
+
+                                    <td *ngIf="client.idCliente == garantia.idCliente">
+                                        {{garantia.garFecha}}
+                                    </td>
+                                    <td *ngIf="client.idCliente == garantia.idCliente">
+                                        {{client.persona.perCedula}}
+                                    </td>
+                                    <td *ngIf="client.idCliente == garantia.idCliente">
+                                        {{client.persona.perNombre}} {{client.persona.perApellido}}
+                                    </td>
+
+
+                                    <td *ngIf="client.idCliente == garantia.idCliente">
+                                        <div *ngIf="garantia.garEstado===1">
+                                            Pendiente
+                                        </div>
+                                        <div *ngIf="garantia.garEstado===2">
+                                            Atendido
+                                        </div>
+                                        <div *ngIf="garantia.garEstado===3">
+                                            Eliminado
+                                        </div>
+                                    </td>
+                                    <td *ngIf="client.idCliente == garantia.idCliente">
+                                        <a class="btn btn-primary btn-xs" (click)="verGaranita(garantia.idGarantia)">
+                                                Ver detalles</a>
+                                    </td>
+
+                                    <td *ngIf="client.idCliente == garantia.idCliente">
+                                        <button type="button" class="btn btn-dark" *ngIf="garantia.garEstado ==1" (click)="EliminarSolicitudesGarantia(garantia.idGarantia)">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--
+
+<tr *ngFor="let client of ListaClientes | filtroGarantia: filtro">
+    <td>{{client.persona.perCedula}}</td>
+    <th>{{client.persona.perNombre}} {{client.persona.perApellido}}</th>
+    <a *ngFor="let garantia of listGarantias">
+
+        <td *ngIf="client.idCliente == garantia.idCliente">{{garantia.garFecha}} |</td>
+
+        <th><a class="btn btn-primary btn-xs" (click)="verGaranita(garantia.idGarantia)">Ver detalles</a></th>
+        <td *ngIf="garantia.garEstado == pendiente"> <a class="btn btn-primary btn-xs" (click)="EliminarSolicitudesGarantia()">Eliminar</a> </td>
+        <td *ngIf="garantia.garEstado===1">Pendiente</td>
+        <td *ngIf="garantia.garEstado===2">Atendido</td>
+        <td *ngIf="garantia.garEstado===3">Eliminado</td>
+
+    </a>
+</tr>
+-->

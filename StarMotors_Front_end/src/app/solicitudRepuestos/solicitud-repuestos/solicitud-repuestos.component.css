@@ -1,0 +1,94 @@
+h2 {
+    text-align: center;
+    color: #443852;
+    font-weight: normal;
+    font-size: 40px;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+  }
+  h6{
+    
+    color: #443963;
+    font-weight: normal;
+    font-size: 20px;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+
+  }
+
+  .formInforme{
+    margin: 16px;
+}
+
+.window-notice {
+    background: rgba(33, 41, 52, .85);
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    position: fixed;
+    z-index: 999;
+}
+
+.window-notice .content {
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 600px;
+    min-width: 320px !important;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 2rem;
+    font-size: 1.3rem;
+}
+form {
+  padding: 60px;
+  max-width: 1000px;
+  background-color: #e7e7e7;
+  margin: 0 auto;
+}
+
+form textarea {
+  margin-bottom: 15px;
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: none;
+  color: #525c66;
+  font-size: 1em;
+  resize: none;
+}
+
+
+textarea {
+  resize: none;
+}
+table {
+  width: 100%;
+  border: 1px solid #999;
+  text-align: left;
+  border-collapse: collapse;
+  margin: 0 0 1em 0;
+  caption-side: top;
+}
+caption,
+td,
+th {
+  padding: 0.3em;
+}
+th,
+td {
+  border-bottom: 1px solid #999;
+  width: 25%;
+}
+caption {
+  font-weight: bold;
+  font-style: italic;
+}

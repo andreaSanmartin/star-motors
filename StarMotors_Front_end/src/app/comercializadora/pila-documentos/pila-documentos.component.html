@@ -1,0 +1,65 @@
+<body>
+
+    <br>
+    <br>
+    <div class="container">
+        <div class="table-title">
+            <h1 style="text-align: center;"> <strong>Reparaciones Ejecutadas</strong></h1>
+        </div>
+        <table class="table-fill">
+            <thead>
+                <tr>
+                    <th class="text-left">Remitente</th>
+                    <th class="text-left">Tipo Documento</th>
+                    <th class="text-left">Fecha</th>
+                    <th class="text-left">Cliente</th>
+                    <th class="text-left">Modelo Vehiculo </th>
+                    <th class="text-left">
+                        <tr class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="notification hidden-sm hidden-xs">Estado</span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="btn btn-primary btn-xs" ngDefaultControl class="dropdown-item fontstyle" (click)="ConsultarIdEmpleado(1)" name="estadoPendiente"> <i class="pe-7s-star"></i> Pendiente</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-primary btn-xs" (click)="ConsultarIdEmpleado(2)" name="estadoProcesado" ngDefaultControl class="dropdown-item fontstyle"> <i class="pe-7s-star"></i>Atendido</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-primary btn-xs" (click)="ConsultarIdEmpleado(3)" name="estadoEliminada" ngDefaultControl class="dropdown-item fontstyle"> <i class="pe-7s-star"></i>Eliminado</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-primary btn-xs" (click)="ConsultarIdEmpleado(4)" name="estadoEliminada" ngDefaultControl class="dropdown-item fontstyle"> <i class="pe-7s-star"></i>Rechazado</a>
+                                </li>
+                            </ul>
+                        </tr>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="table-hover">
+                <tr *ngFor="let orden of ordenesReparacion">
+                    <td class="text-left">{{Concesionaria.comercializadora.comCorreo}}</td>
+                    <td class="text-left">informe reparacion</td>
+                    <td class="text-left">{{orden.reclamo.informeProformaReparacion.ordenReparacion.orFecha}}</td>
+                    <td>
+                        <tr *ngFor="let client of listClientes">
+                            <td *ngIf="client.idCliente == orden.idCliente" class="text-left">{{client.persona.perCedula}}</td>
+                        </tr>
+                    </td>
+                    <td>
+                        <tr *ngFor="let vehiculo of listVehiculos">
+                            <td *ngIf="vehiculo.idEjemplar == orden.idVehiculo" class="text-left">{{vehiculo.modelo.modNombre}}</td>
+                        </tr>
+                    </td>
+
+                    <td class="text-left"><button type="button" class="btn btn-primary" (click)=" Vermas(orden.idGarantia)">Ver mas</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+
+</body>

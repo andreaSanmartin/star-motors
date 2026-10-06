@@ -1,0 +1,109 @@
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.css';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+/* h1 {
+    text-align: center;
+}
+
+table {
+    text-align: center;
+} */
+
+
+/* 
+.wrapper {
+    margin: 0 auto;
+    width: 90%;
+}
+
+.cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cards li {
+    border: 2px solid #490A3D;
+    border-radius: 5px;
+    background-color: #BD1550;
+    color: #fff;
+    flex: 1 1 200px;
+}
+
+.cards h2 {
+    background-color: #490A3D;
+    margin: 0;
+    padding: 10px;
+}
+
+.cards p {
+    padding: 10px;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+
+.flex li {
+    flex: 1 1 200px;
+    margin: 10px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /*grid-template-columns: repeat(auto-fill, minmax(200px 1fr));
+    grid-gap: 20px;
+} */
+
+body {
+    padding: 50px;
+    line-height: 150%;
+}
+
+
+/* Add Styles for your cards here */
+
+
+/* ------ */
+
+
+/* Animation SCSS */
+
+.come-in {
+    -webkit-transform: translateY(150px);
+    -ms-transform: translateY(150px);
+    transform: translateY(150px);
+    -webkit-animation: come-in 0.8s ease forwards;
+    animation: come-in 0.8s ease forwards;
+}
+
+.come-in:nth-child(odd) {
+    -webkit-animation-duration: 0.6s;
+    animation-duration: 0.6s;
+}
+
+.already-visible {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation: none;
+    animation: none;
+}
+
+@-webkit-keyframes come-in {
+    to {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes come-in {
+    to {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,100 @@
+<br>
+<h1>Detalle de la proforma - generar orden reparacion</h1>
+<div class=" container">
+    <div class="row justify-content-md-center">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="3">Datos del propietario del vehiculo </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <td>{{cliente?.persona.perNombre}} {{cliente.persona.perApellido}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Cedula</th>
+                    <td>{{cliente?.persona.perCedula}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Telefono</th>
+                    <td> {{cliente?.persona.perTelefono}} </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="col-md-auto">
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="3">Datos del vehiculo </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="col">Marca del Auto</th>
+                        <td>{{vehiculo.ejemplar.modelo.marca.marNombre}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Numero de Chasis del Vehiculo</th>
+                        <td> {{vehiculo.vehNumChasis}} </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Año del Auto</th>
+                        <td>{{vehiculo.ejemplar.modelo.modAnio}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-auto">
+
+            <table class="table table-bordered">
+                <thead ngFor=" pro of ordenesReparacion">
+
+                    <tr>
+                        <th scope="col" colspan="3">Datos de la orden </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="col">Fallos</th>
+                        <td> {{garantia.fallosSistemasVehiculo}} </td>
+                    </tr>
+                    <tr *ngFor="let pro of ordenesReparacion">
+                        <th *ngIf="garantia.idCliente == pro.idCliente" scope="col">Descripcion</th>
+                        <td *ngIf="garantia.idCliente == pro.idCliente">
+                            {{pro.reclamo.informeProformaReparacion.ordenReparacion.orDescripcion}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col" disabled>Detalle</th>
+                        <td scope="col"><input size="16" type="text" class="form-control" [(ngModel)]="inputDescripcion"
+                                required placeholder="Ingrese un detalle de la orden"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div *ngIf="message == true" class="row">
+                <div class="col-md-4">
+                    <div class="alert alert-success">
+                        <button class="close" data-dismiss="alert"><span>&times;</span></button> Se ha Generado la
+                        orden con exito
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button style="float: right;" 
+                class="btn btn-primary btn-fill"
+                (click)="volver()"
+                type="button">
+            Volver
+        </button>
+        <div>
+            <button *ngIf="!estadoProcesado" type="button"
+                class="btn btn-primary btn-fill" 
+                (click)="GuardarOrden()">
+                Generar Orden
+            </button>
+        </div>
+    </div>
+</div>

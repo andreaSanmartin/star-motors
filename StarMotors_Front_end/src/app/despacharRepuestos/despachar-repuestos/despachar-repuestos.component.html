@@ -1,0 +1,93 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title" style="text-align: center;">Listado de Solicitudes de Despacho Repuestos</h4>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Fecha de solicitud</th>
+                                <th scope="col">Cedula Solicitante</th>
+                                <th scope="col">Nombre Solicitante</th>
+                                <th scope="col">
+                            <tr class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="notification hidden-sm hidden-xs">Estado</span>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="btn btn-primary btn-xs" ngDefaultControl
+                                           class="dropdown-item fontstyle"
+                                           (click)="listDespachoByStatus(1)"
+                                           name="estadoProcesada">
+                                            <i class="pe-7s-star"></i>
+                                            Pendiente</a>
+                                    </li>
+                                    <li>
+                                        <a class="btn btn-primary btn-xs"
+                                           (click)="listDespachoByStatus(2)"
+                                           name="estadoPendiente" ngDefaultControl
+                                           class="dropdown-item fontstyle">
+                                            <i class="pe-7s-star"></i>Despachado</a>
+                                    </li>
+                                </ul>
+
+                            </tr>
+
+                            <th scope="col">Accion</th>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col"><input
+                                        type="text"
+                                        class="form-control"
+                                        id="inputEstado"
+                                        placeholder="Ingrese la fecha"
+                                        [(ngModel)]="datefilter"
+                                ></th>
+                                <th scope="col" colspan="2"><input type="text" class="form-control" id="inputEstado"
+                                                                   placeholder="Ingrese el nombre o cedula..."
+                                                                   [(ngModel)]="namefilter"></th>
+
+                            </tr>
+                            </thead>
+                            <tbody class="table-hover"
+                                   *ngFor="let solicitud of listSolicitudRepuestos | filtroSoliRepDate: datefilter ; let i = index;">
+                            <tr *ngFor="let empleado of listEmpleadoSolicita | filtroNombre :namefilter">
+                                <td *ngIf="solicitud.empleadoSolicitaRepuestos.idEmpleadoAPIRestSQL === empleado.idEmpleado">
+                                    {{i + 1}}
+                                </td>
+                                <td *ngIf="solicitud.empleadoSolicitaRepuestos.idEmpleadoAPIRestSQL === empleado.idEmpleado">{{solicitud.srFechaSolicitud}}
+                                </td>
+                                <td *ngIf="solicitud.empleadoSolicitaRepuestos.idEmpleadoAPIRestSQL === empleado.idEmpleado">
+                                    {{empleado.persona.perCedula}}
+                                </td>
+                                <td *ngIf="solicitud.empleadoSolicitaRepuestos.idEmpleadoAPIRestSQL === empleado.idEmpleado">
+                                    {{empleado.persona.perNombre}} {{empleado.persona.perApellido}}
+                                </td>
+                                <td *ngIf="solicitud.empleadoSolicitaRepuestos.idEmpleadoAPIRestSQL === empleado.idEmpleado && solicitud.srEstado===1">
+                                    PENDIENTE
+                                </td>
+                                <td *ngIf="solicitud.empleadoSolicitaRepuestos.idEmpleadoAPIRestSQL === empleado.idEmpleado && solicitud.srEstado===2">
+                                    DESPACHADO
+                                </td>
+                                <td *ngIf="solicitud.empleadoSolicitaRepuestos.idEmpleadoAPIRestSQL === empleado.idEmpleado">
+                                    <button class="btn btn-primary btn-xs"
+                                            (click)="verSolicitudR(solicitud.idGarantia,i)">Ver detalles
+                                    </button>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

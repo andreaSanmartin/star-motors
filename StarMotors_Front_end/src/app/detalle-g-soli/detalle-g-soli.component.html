@@ -1,0 +1,155 @@
+<div class=" container">
+    <div class="row-md-auto ">
+        <h1>Detalle de Reclamo</h1>
+        <div class="row" style="margin: auto;">
+            <p style="text-align: right;">Cuenca <strong>{{fechaReclamo.getDate()}}
+                de {{getLongMonthName(fechaReclamo.getMonth())}}
+                del {{fechaReclamo.getFullYear()}}</strong></p>
+            <p class="card-text" style="text-align: justify;">
+                Estimado(a) <strong>{{comercializadora.comNombre}}: </strong> <br> Reciba un coordial saludo de parte de
+                la concesionaria <strong>{{concesionaria.conNombre}}</strong>. Mediante este reclamo se le notifica que
+                el cliente
+                <strong>{{cliente.persona.perNombre}} {{cliente.persona.perApellido}}</strong> portador de la
+                cedula {{cliente.persona.perCedula}}, solicitó su garantía sobre el vehiculo que adquirió. <br>
+                El daño que presenta el vehiculo se encuentra en: {{garantia.reclamo?.recDanio}}. Las razones que
+                especifica el cliente son: {{garantia.reclamo?.razonesReclamo}}. Por esta razón se solicita
+                que {{garantia.reclamo?.recDescripcion}}. A continuación se muestra a detalle los datos del cliente,
+                vehiculo y su garantia.
+            </p>
+        </div>
+        <table class="table table-bordered" id="tablaclient">
+            <thead>
+            <!-- DATOS DEL ASEGURADO-->
+            <tr>
+                <th scope="col" colspan="3">Datos del Asegurado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="col">Cédula:</th>
+                <td style="text-align: left">{{cliente.persona.perCedula}} </td>
+            </tr>
+            <tr>
+                <th scope="col">Nombre:</th>
+                <td style="text-align: left">{{cliente.persona.perNombre}} {{cliente.persona.perApellido}}</td>
+            </tr>
+
+            <tr>
+                <th scope="col">Dirección:</th>
+                <td style="text-align: left">{{cliente.persona.perDireccion}}</td>
+            </tr>
+            <tr>
+                <th scope="col">Email:</th>
+                <td style="text-align: left">{{cliente.persona.perEmail}}</td>
+            </tr>
+            <tr>
+                <th scope="col">Teléfono:</th>
+                <td style="text-align: left">{{cliente.persona.perTelefono}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- DATOS DEL VEHICULO-->
+        <div class="col-md-auto">
+            <table class="table table-bordered">
+                <thead>
+
+                <tr>
+                    <th colspan="3">Datos del vehiculo</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td rowspan="10">
+                        <img width="400px" src="{{vehiculo.ejemplar.modelo.modFoto}}">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Marca:</th>
+                    <td style="text-align: left">{{vehiculo.ejemplar.modelo.marca.marNombre}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Modelo:</th>
+                    <td style="text-align: left">{{vehiculo.ejemplar.modelo.modNombre}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Nro Motor:</th>
+                    <td style="text-align: left">{{vehiculo.vehNumMotor}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Nro Chasis:</th>
+                    <td style="text-align: left">{{vehiculo.vehNumChasis}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Año:</th>
+                    <td style="text-align: left">{{vehiculo.ejemplar.modelo.modAnio}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Potencia:</th>
+                    <td style="text-align: left">{{vehiculo.ejemplar.modelo.modPotencia}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Cilindraje:</th>
+                    <td style="text-align: left">{{vehiculo.ejemplar.modelo.modCilindraje}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Tipo de combustible:</th>
+                    <td style="text-align: left">{{vehiculo.ejemplar.modelo.tipoCombustible?.tcNombre}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Color:</th>
+                    <td style="text-align: left">{{vehiculo.ejemplar.ejmColor}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-auto">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col" colspan="3">Datos de la Garantia</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="col">Fecha de Compra:</th>
+                    <td style="text-align: left">Emitido el {{fechaEmision.getDate() + 1}}
+                        de {{getLongMonthName(fechaEmision.getMonth())}}
+                        del {{fechaEmision.getFullYear()}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Fecha de Vencimiento:</th>
+                    <td style="text-align: left">Emitido el {{fechaExpiracion.getDate()}}
+                        de {{getLongMonthName(fechaExpiracion.getMonth())}}
+                        del {{fechaExpiracion.getFullYear()}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Kilometraje de Garantía:</th>
+                    <td style="text-align: left">{{kmGarantia}} Km</td>
+                </tr>
+                <tr>
+                    <th scope="col">Detalle de Garantía:</th>
+                    <td style="text-align: left">
+                        Para hacer el reclamo de la garantia, el cliente deberá justificar que problemas tuvo con el
+                        vehículo y especificar si fueron daños de fabrica o daños causados por el mal uso del equipo.
+                        Adicional a eso, deberá presentar una solicitud de garantía con las especificaciones antes
+                        mencionadas, a traves de nuestra app movil.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="button" style="margin-left: 25vw;" class="btn btn-primary"
+                    (click)="generarInformeProforma(garantia.idGarantia)">Aprobar
+            </button>
+            <button type="button" style="margin-right: 25vw;" class="btn btn-primary"
+                    (click)="generarInformeRechazo(garantia.idGarantia)">Rechazar
+            </button>
+            <button type="button" class="btn btn-primary" style="float: left; margin-right: 0.6cm;"
+                    (click)="volverListaReclamos()">Volver
+            </button>
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>
+

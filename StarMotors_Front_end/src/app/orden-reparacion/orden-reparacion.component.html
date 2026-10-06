@@ -1,0 +1,45 @@
+
+<div class="main-content">
+    <h2 align="center">Orden Reparaciones</h2>
+    <div class="container-fluid">
+        <div class="card">
+        
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Responsable</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let orden of listOrdenes; let indice=index">
+                        <th scope="row">{{indice+1}}</th>
+                        <td>{{orden.reclamo.informeProformaReparacion.ordenReparacion.orFecha}}</td>
+                        <td>Dato</td>
+                        <td>Nose</td>
+                        <div *ngFor="let empleado of empleados">
+                            <div *ngIf="empleado.idEmpleado===orden.idEmpleado; else ''">
+                                {{empleado.persona.perNombre +' '+ empleado.persona.perApellido}}
+                            </div>
+                        </div>
+                        <td><button type="button" class="btn btn-primary btn-sm" >Ver Mas</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

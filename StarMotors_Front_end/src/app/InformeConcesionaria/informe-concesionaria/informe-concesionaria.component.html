@@ -1,0 +1,191 @@
+<div class=" container" id="informe ">
+    <div class="card text-center">
+        <div><label for="fecha">Escoja la fecha de emisión del documento:</label>
+
+            <input [(ngModel)]="fecha" type="date">
+        </div>
+
+        <p>Fecha: <strong>{{fecha}}</strong></p>
+    </div>
+    <div class="card text-center">
+        <div class="content" id="informe" style="margin: auto;">
+            <div class="card-header" style="margin-top: 5px;">
+                <h1 style="text-align: center;"> <strong>INFORME CONCESIONARIA</strong></h1>
+                <br>
+            </div>
+            <div class="card-body">
+                <div class="row justify-content-md-center">
+                    <div class="row" style="margin: auto;">
+                        <p class="card-text" style="text-align: justify; margin: 15px;">
+                            Estimado(a) Cliente: <br>
+                            Reciba un coordial saludo de parte de la <strong>CONCESIONARIA STARMOTORS</strong>. <br>
+                            Mediante este documento le damos a conocer el informe del taller a la concensionaria
+                            la descripcion, la garantia que cubre, los datos del taller y los datos del vehiculo.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    ___________________________________________________________________________________________________________________<br>
+
+                    <h1 style="text-align: center;"> <strong><small>DETALLES DEL VEHICULO</small></strong></h1>
+                    <table class="table table-bordered" style="text-align: justify;">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="3" style="text-align: center;">Datos</th>
+                            </tr>
+                            <br>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="col" style="text-align: center;">Marca del Auto</th>
+                                <td>{{Vehiculo.ejemplar.modelo.marca.marNombre}}</td>
+                            </tr>
+                            <br>
+                            <tr>
+                                <th scope="col" style="text-align: center;">Numero de Chasis del Vehiculo</th>
+                                <td> {{Vehiculo.vehNumChasis}} </td>
+                            </tr>
+                            <br>
+                            <tr>
+                                <th scope="col" style="text-align: center;">Registro Aduanero de Matriculacion Vehicular</th>
+                                <td>{{Vehiculo.vehRAMV}} </td>
+                            </tr>
+                            <br>
+                            <tr>
+                                <th scope="col" style="text-align: center;">Año del Auto</th>
+                                <td>{{Vehiculo.ejemplar.modelo.modAnio}}</td>
+                            </tr>
+                            <br>
+                            <tr>
+                                <th scope="col" style="text-align: center;">Mas datos del cliente</th>
+                                <td>descripcion </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-auto">
+
+                    _________________________________________________________________________________________<br>
+                    <h1 style="text-align: center;"> <strong><small>DETALLES DEL TALLER</small></strong></h1>
+                    <table class="table table-bordered" style="text-align: justify;">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="3" style="text-align: center;"> Datos  </th>
+                            </tr>
+                            <br>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="col" style="text-align: center;">Fallos del Sistema</th>
+                                <td *ngFor="let fallo of fallosSistema" class="text-left: center">{{fallo}}</td>
+                            </tr>
+                            <br>
+                            <tr>
+                                <th scope="col" style="text-align: center;">Descripcion</th>
+                                <td>{{Garantia.reclamo.informeProformaReparacion.ordenReparacion.informeReparacionTaller.ireDescripcion}}
+                                </td>
+                            </tr>
+                            <br>
+                            <tr>
+                                <th scope="col" style="text-align: center;">Mano de Obra</th>
+                                <td> Cantididad Hora <br>
+                                    {{cantidadHora}} <br>
+                                _____________________________________________<br>
+                                    Precio Hora <br>
+                                    {{precioHora}}</td>
+                            </tr>
+                            <br>
+                            <tr *ngFor="let item of repuestosb">
+                                <th scope="col" style="text-align: center;">Nombre del repuesto</th>
+                                <td>{{item.repNombre}}</td>
+                            </tr>
+                            <br>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        _________________________________________________________________________________________<br>
+        <div class="containers">
+            <div class="col-5">
+                <h1> <b><small>GENERAR INFORME</small></b></h1>
+                <form margin="15px">
+                    <div class="form-group">
+                        <label class="form-label">Descripcion</label>
+                        <input type="text" class="form-control" id="descripcion" margin="15px" [(ngModel)]="descripcion"
+                            aria-describedby="nombreHelp" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" class="form-label">Garantia Cubre</label>
+                        <input type="number" class="form-control" id="garantiaCubre" margin="15px"
+                            [(ngModel)]="garantiaCubre" aria-describedby="apellidoHelp"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label class="form-label">Fecha</label>
+                        <input type="date" class="form-control" id="fecha" margin="15px" [(ngModel)]="date"
+                            aria-describedby="cedulaHelp" [ngModelOptions]="{standalone: true}">
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-auto">
+
+                <div *ngIf="message == true" class="row">
+                    <div class="col-md-4">
+                        <div class="alert alert-success">
+                            <button class="close" data-dismiss="alert"><span>&times;</span></button> Se ha Guardaro el
+                            informe con exito
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary" (click)="CrearInformeComercializadora()">Guardar
+                Informe</button>
+        </div>
+        <button type="button" printSectionId="informe" ngxPrint class="btn btn-primary">Imprimir</button>
+        <button type="button" (click)="mostrarventanaInput()" class="btn btn-primary">Enviar Informe</button>
+
+    </div>
+
+    <div *ngIf="ventanaFlotante" class="window-notice" id="window-notice">
+        <div class="content">
+            <div class="content-text">
+                <h2> <strong>Enviando el informe a la Concesionaria.</strong></h2>
+            </div>
+            <br>
+            <br>
+            <div>
+                <img src="https://media1.giphy.com/avatars/salih/X2whGMuTDcpt.gif" height=100% width=100%
+                    alt="Funny image">
+            </div>
+            <br>
+            <br>
+            <div class="content-buttons"></div>
+        </div>
+    </div>
+    <div *ngIf="Ventanainput" class="window1-notice" id="window1-notice">
+        <div class="content">
+            <div class="content-text">
+                <h2> <strong>Seleccione el Informe.</strong></h2>
+            </div>
+            <br>
+            <br>
+            <div style="align-content: center;">
+                <input type="file" (change)="capturarFile($event)">
+                <!-- <button (click)="subirArchivo()" class="btn btn-primary"></button> -->
+                <br>
+                <button type="button" (click)="subirArchivo()" class="btn btn-primary">Enviar Informe</button>
+            </div>
+            <br>
+            <br>
+            <div class="content-buttons"></div>
+        </div>
+    </div>
+</div>

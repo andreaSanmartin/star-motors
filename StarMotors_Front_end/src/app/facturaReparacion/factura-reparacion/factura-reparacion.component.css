@@ -1,0 +1,179 @@
+table {
+    border: 1px solid rgb(37, 32, 32);
+    font-family: Arial, Helvetica, sans-serif;
+    width: 940px;
+    border-spacing: 10px;
+}
+
+.logo {
+    text-align: left;
+    font-weight: bold;
+    width: 600px;
+}
+
+div {
+    text-align: center;
+    display: inline-block;
+}
+
+p {
+    text-align: left;
+    font-weight: bold;
+    font-size: 9px;
+    font-family: Arial, sans-serif;
+}
+
+img {
+    height: 70px;
+    width: 90px;
+    display: inline-block;
+}
+
+.tg {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: none;
+}
+
+.tg .tg-us36 {
+    border-color: inherit;
+    vertical-align: top
+}
+
+.check {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 1px solid rgb(19, 13, 13);
+    margin-right: 10px;
+}
+
+div {
+    display: inline-block;
+}
+
+.timbrado {
+    display: inline-block;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    padding-right: 40px;
+    text-align: center;
+}
+
+table.invoice {
+    text-align: left;
+    border-collapse: collapse;
+}
+
+table.invoice td,
+table.invoice th {
+    border-bottom: 1px solid rgb(17, 12, 12);
+    padding: 5px 4px;
+}
+
+table.invoice tbody td {
+    font-size: 13px;
+    color: #000000;
+    border-left: 1px solid #CCC;
+    text-align: center;
+}
+
+table.invoice thead th {
+    font-size: 15px;
+    font-weight: normal;
+    color: #000000;
+    text-align: center;
+    border-left: 1px solid #CCC;
+}
+
+.little {
+    text-align: left;
+    width: 935px;
+    display: inline-block;
+    font-size: 9px;
+}
+
+span:last-child {
+    float: right;
+}
+
+tfoot {
+    text-align: left;
+}
+
+.abs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.fac {
+    width: 450px;
+}
+
+.window-notice {
+    background: rgba(33, 41, 52, .85);
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    position: fixed;
+    z-index: 999;
+}
+
+.window-notice .content {
+    background: rgb(255, 255, 255);
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 600px;
+    min-width: 320px !important;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 2rem;
+    font-size: 1.3rem;
+}
+
+.window1-notice {
+    background: rgba(33, 41, 52, .85);
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    position: fixed;
+    z-index: 999;
+}
+
+.window1-notice .content {
+    background: rgb(255, 255, 255);
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 600px;
+    min-width: 320px !important;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 2rem;
+    font-size: 1.3rem;
+}
+
+.cerrar {
+    display: block;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 0px;
+    right: 30px;
+}
